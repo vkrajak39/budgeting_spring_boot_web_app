@@ -1,0 +1,336 @@
+<!-- Category Modal -->
+		<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+		    <!-- Your modal content for Category goes here -->
+			<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="categoryModalLabel">Manage
+										Categories</h5>
+			
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="CreateCategory" onclick="category(this)">&#x26A1;
+												Create Category</button>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="ReadCategory" onclick="category(this)">&#x1F4D6;
+												Read Category</button>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="EditCategory" onclick="category(this)">&#x270F;
+												Edit Category</button>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" id="closeModalBtn" onclick="closeAdmin()"
+										data-bs-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+		
+		</div>
+		
+		<!-- Account Type Modal -->
+		<div class="modal fade" id="accountTypeModal" tabindex="-1" aria-labelledby="accountTypeModalLabel" aria-hidden="true">
+		    <!-- Your modal content for Account Type goes here -->
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="accountTypeModalLabel">Manage
+							Account Types</h5>
+			
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="CreateAccountType" onclick="accountType(this)">&#x26A1;
+									Create Account Type</button>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="ReadAccountType" onclick="accountType(this)">&#x1F4D6;
+									Read Account Type</button>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="EditAccountType" onclick="accountType(this)">&#x270F;
+									Edit Account Type</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" id="closeModalBtn" onclick="closeAdmin()"
+							data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Currency Modal -->
+		<div class="modal fade" id="currencyModal" tabindex="-1" aria-labelledby="currencyModalLabel" aria-hidden="true">
+		    <!-- Your modal content for Currency goes here -->
+			<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="currencyModalLabel">Manage
+									Currencies</h5>
+			
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col">
+										<button type="button" class="btn btn-primary btn-block"
+											id="CreateCurrency" onclick="currency(this)">&#x26A1;
+											Create Currency</button>
+									</div>
+								</div>
+								<div class="row mt-3">
+									<div class="col">
+										<button type="button" class="btn btn-primary btn-block"
+											id="ReadCurrency" onclick="currency(this)">&#x1F4B5;
+											Read Currency</button>
+									</div>
+								</div>
+								<div class="row mt-3">
+									<div class="col">
+										<button type="button" class="btn btn-primary btn-block"
+											id="EditCurrency" onclick="currency(this)">&#x270F;
+											Edit Currency</button>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" id="closeModalBtn" onclick="closeAdmin()"
+									data-bs-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+		
+		</div>
+		
+		<!-- Label Modal -->
+		<div class="modal fade" id="labelModal" tabindex="-1" aria-labelledby="labelModalLabel" aria-hidden="true">
+		    <!-- Your modal content for Label goes here -->
+			<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="labelModalLabel">Manage Labels</h5>
+			
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="CreateLabel" onclick="label(this)">&#x26A1; Create
+												Label</button>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="ReadLabel" onclick="label(this)">&#x1F4D6; Read
+												Label</button>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="EditLabel" onclick="label(this)">&#x270F; Edit
+												Label</button>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" id="closeModalBtn" onclick="closeAdmin()"
+										data-bs-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+		
+		</div>
+		
+		<!-- Location Modal -->
+		<div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+		    <!-- Your modal content for Location goes here -->
+			<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="locationModalLabel">Manage
+										Locations</h5>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="CreateLocation" onclick="manageLocation(this)">&#x26A1;
+												Create Location</button>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="ReadLocation" onclick="manageLocation(this)">&#x1F4CD; Read
+												Location</button>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="EditLocation" onclick="manageLocation(this)">&#x270F; Edit
+												Location</button>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" id="closeModalBtn" onclick="closeAdmin()"
+										data-bs-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+		</div>
+		
+		<!-- Payment Type Modal -->
+		<div class="modal fade" id="paymentTypeModal" tabindex="-1" aria-labelledby="paymentTypeModalLabel" aria-hidden="true">
+		    <!-- Your modal content for Payment Type goes here -->
+			<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="paymentTypeModalLabel">Manage
+										Payment Types</h5>
+			
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="CreatePaymentType" onclick="paymentType(this)">&#x26A1;
+												Create Payment Type</button>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="ReadPaymentType" onclick="paymentType(this)">&#x1F4D6;
+												Read Payment Type</button>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col">
+											<button type="button" class="btn btn-primary btn-block"
+												id="EditPaymentType" onclick="paymentType(this)">&#x270F;
+												Edit Payment Type</button>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" id="closeModalBtn" onclick="closeAdmin()"
+										data-bs-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+		
+		</div>
+		
+		<!-- StaticBackdrop Modal -->
+		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		    <!-- Your modal content for Static Backdrop goes here -->
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="staticBackdropLabel">ADD
+								RECORD</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+			
+							<!-- form starts here -->
+			
+							<form class="row g-3" action="/records/addRecord" method="post">
+			
+			
+								<!-- grid starts here -->
+								
+							 	 <div th:replace="recordCard::recordCardFragment">  </div>
+								
+			
+								<!-- grid ends here -->
+								<div class="col-12 text-center">
+									<button type="submit" class="btn  modal-form-submit-button">Add
+										Record</button>
+									<div id="modal-hyperlink">
+										<a href="#">Add and create another</a>
+									</div>
+								</div>
+							</form>
+			
+			
+			
+						</div>
+						
+						<!--  modal footer code 
+						
+						<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Understood</button>
+						</div> 
+						 -->
+			
+					</div>
+				</div>
+
+		</div>
+		
+
+		
+		<!-- modal button for record vineet -->
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+					data-bs-target="#staticBackdrop" onclick="GetRecordFields()">+
+					Record</button>
+				&nbsp;&nbsp;&nbsp;
+				<button type="button" class="btn btn-primary ml-2" id="selectFileBtn"
+					onclick="handleFiles()">Select File</button>
+				&nbsp;&nbsp;&nbsp;
+				<button type="button" class="btn btn-primary ml-2" id="importBtn"
+					onclick="handleImportCSV()">Import</button>
+				&nbsp;&nbsp;&nbsp; <input class="form-control d-none" id="fileinput"
+					type="file" accept=".csv" onchange="handleChange()">
+				<div id="importStatus"></div>
+		
+				<div class="d-flex align-items-center">
+					<i class="fa-solid fa-cloud" style="margin-right: 9px;"></i>
+					<div id="weather-info" class="d-flex">Loading weather data...</div>
+				</div>
+				&nbsp;&nbsp;&nbsp;
+		
+				<div class="dropdown text-end">
+					<a href="#"
+						class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+						data-bs-toggle="dropdown" aria-expanded="false"> <img
+						src="<%=user.getImagePath()%>\<%=user.getUserid()%>.jpg" alt="mdo"
+						width="32" height="32" class="rounded-circle">
+					</a>
+					<ul class="dropdown-menu text-small">
+						<li><a class="dropdown-item" href="EditUser">Edit User</a></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="Logout">Log out</a></li>
+					</ul>
+				</div>
+		
+		 </div>

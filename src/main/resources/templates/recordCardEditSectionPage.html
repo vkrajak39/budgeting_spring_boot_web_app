@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<span th:fragment="recordCardEditSectionPageFragment">
+
+<div class="container-fluid">
+
+
+
+	<div class="row  px-5 py-2 mx-5 my-1">
+		<div class="col-md-8">
+			<p th:text="${record.recordType.recordTypeName}">
+				
+			</p>
+			<div class="upper-form">
+
+			
+			
+			
+			
+			
+			
+				<!-- top form section here -->
+
+
+				<div class="row  text-center">
+
+					<div class="col  text-center button-column">
+						<button type="button" class="" onclick="return showExpense()"
+							id="expenseButton">Expense</button>
+
+						<button type="button" onclick="return showIncome()"
+							id="incomeButton">Income</button>
+
+						<button type="button" onclick="return showTransfer()"
+							id="transferButton">Transfer</button>
+					</div>
+				</div>
+				<!-- top form goes here -->
+
+
+				<!-- top form Expense section -->
+				<div class="row-col">
+
+					<div class="form-begins top-form-container" id="expense-form"
+						style="display: block;">
+
+						<div class="mb-4">
+							<label class="form-label top-form-container-label"
+								for="form6Example7">Account</label>
+
+							<div class="form-outline">
+								<select class="form-control" name="Account_type_expense"
+									id="Account_type_expense" required>
+									
+									<option th:value="${record.account.id}" th:text="${record.account.name}"> </option>
+									<option th:each="element : ${accountList}" th:value="${element.id}" th:text="${element.name}"> </option>
+								
+									
+									
+
+
+								</select>
+								<div id="paymentTypeError" style="display: none; color: red;">Please
+									select a city.</div>
+							</div>
+						</div>
+
+						<!-- 2 column grid layout with text inputs  -->
+
+						<div class="row mb-4">
+							<div class="col">
+								<div data-mdb-input-init class="form-outline">
+									<label class="form-label top-form-container-label"
+										for="form6Example1">Amount</label> <input type="text"
+										id="amount_expense" class="form-control"
+										name="amount_expense" th:value="${record.amount}" />
+								</div>
+							</div>
+							<div class="col">
+								<label class="form-label top-form-container-label"
+									for="form6Example7">Currency</label>
+
+								<div class="form-outline">
+									<select class="form-control" name="currency_expense"
+										id="currency_expense" required>
+										
+										<option th:value="${record.currency.id}" th:text="${record.currency.currency_name}"> </option>
+										<option th:each="element : ${currencyList}" th:value="${element.id}" th:text="${element.currency_name}"> </option>
+				
+											
+
+									</select>
+									<div id="paymentTypeError" style="display: none; color: red;">Please
+										select a city.</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+					</div>
+
+					<!-- top form income section -->
+
+					<div class="form-begins top-form-container" id="income-form"
+						style="display: none;">
+
+
+						<div class="mb-4">
+							<label class="form-label top-form-container-label"
+								for="form6Example7">Account</label>
+
+							<div class="form-outline">
+								<select class="form-control" name="Account_type_income"
+									id="Account_type_income" required>
+									<option th:value="${record.account.id}" th:text="${record.account.name}"> </option>
+									<option th:each="element : ${accountList}" th:value="${element.id}" th:text="${element.name}"> </option>
+								
+									
+
+
+								</select>
+								<div id="paymentTypeError" style="display: none; color: red;">Please
+									select a city.</div>
+							</div>
+						</div>
+						<!-- 2 column grid layout with text inputs for the first and last names -->
+
+						<div class="row mb-4">
+							<div class="col">
+								<div data-mdb-input-init class="form-outline">
+									<label class="form-label top-form-container-label"
+										for="form6Example1">Amount</label> <input type="text"
+										id="amount_income" class="form-control"
+										name="amount_income" th:value="${record.amount}"/>
+								</div>
+							</div>
+							<div class="col">
+								<label class="form-label top-form-container-label"
+									for="form6Example7">Currency</label>
+
+								<div class="form-outline">
+									<select class="form-control" name="currency_income"
+										id="currency_income" required>
+										<option th:value="${record.currency.id}" th:text="${record.currency.currency_name}"> </option>
+										<option th:each="element : ${currencyList}" th:value="${element.id}" th:text="${element.currency_name}"> </option>
+				
+											
+											
+
+									</select>
+									<div id="paymentTypeError" style="display: none; color: red;">Please
+										select a city.</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- top form transfer section -->
+
+					<div class="form-begins top-form-container" id="transfer-form"
+						style="display: none;">
+
+
+						<div class="row">
+
+							<!-- top form transfer left section -->
+							<div class="col-md-6   transfer-form-left-column">
+
+								<!-- for  for account -->
+								<div class="mb-4">
+									<label class="form-label top-form-container-label"
+										for="form6Example7">From account</label>
+
+									<div class="form-outline">
+										<select class="form-control"
+											name="account_type_from_account_transfer"
+											id="account_type_from_account_transfer" required>
+											<option th:value="${record.account.id}" th:text="${record.account.name}"> </option>
+											<option th:each="element : ${accountList}" th:value="${element.id}" th:text="${element.name}"> </option>
+								
+												
+										</select>
+										<div id="paymentTypeError" style="display: none; color: red;">Please
+											select a city.</div>
+									</div>
+								</div>
+
+								<!-- 2 column grid layout with text inputs for the first and last names -->
+
+								<div class="row mb-4">
+									<div class="col">
+										<div data-mdb-input-init class="form-outline">
+											<label class="form-label top-form-container-label"
+												for="form6Example1">Amount</label> <input type="text"
+												id="amount_from_account_transfer" class="form-control"
+												name="amount_from_account_transfer" th:value="${record.amount}"/>
+										</div>
+									</div>
+									<div class="col">
+										<label class="form-label top-form-container-label"
+											for="form6Example7">Currency</label>
+
+										<div class="form-outline">
+											<select class="form-control"
+												name="currency_from_account_transfer"
+												id="currency_from_account_transfer" required>
+												
+												<option th:value="${record.currency.id}" th:text="${record.currency.currency_name}"> </option>
+												<option th:each="element : ${currencyList}" th:value="${element.id}" th:text="${element.currency_name}"> </option>
+				
+												
+												
+
+											</select>
+											<div id="paymentTypeError" style="display: none; color: red;">Please
+												select a city.</div>
+										</div>
+									</div>
+								</div>
+
+
+
+							</div>
+
+
+
+							<div class="col-md-6  transfer-form-right-column">
+
+								<!-- for  to account -->
+								<div class="mb-4">
+									<label class="form-label top-form-container-label"
+										for="form6Example7">To account</label>
+
+									<div class="form-outline">
+										<select class="form-control"
+											name="account_type_to_account_transfer"
+											id="account_type_to_account_transfer" required>
+											
+											
+											<option th:value="${toAccount.id}" th:text="${toAccount.name}"> </option>  
+											<option th:each="element : ${accountList}" th:value="${element.id}" th:text="${element.name}"> </option>
+								
+												
+										</select>
+										<div id="paymentTypeError" style="display: none; color: red;">Please
+											select a city.</div>
+									</div>
+
+								</div>
+
+								<!-- 2 column grid layout with text inputs for the first and last names -->
+
+								<div class="row  mb-4">
+									<div class="col">
+										<div data-mdb-input-init class="form-outline">
+											<label class="form-label top-form-container-label"
+												for="form6Example1">Amount</label> <input type="text"
+												id="amount_to_account_transfer" class="form-control"
+												name="amount_to_account_transfer" th:value="${record.toAmount}"/>
+										</div>
+									</div>
+									<div class="col">
+										<label class="form-label top-form-container-label"
+											for="form6Example7">Currency</label>
+
+										<div class="form-outline">
+											<select class="form-control"
+												name="currency_to_account_transfer"
+												id="currency_to_account_transfer" required>
+												
+												<option th:value="${toCurrency.id}?:''" th:text="${toCurrency.currency_name}?:''"> </option>
+												<option th:each="element : ${currencyList}" th:value="${element.id}" th:text="${element.currency_name}"> </option>
+								
+												
+												
+												
+												
+												
+											</select>
+											<div id="paymentTypeError" style="display: none; color: red;">Please
+												select a city.</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="">
+
+				<!-- bottom form goes here -->
+
+				<div class="form-begins bottom-form-container">
+					<!-- 2 column grid layout with text inputs for the first and last names -->
+					<div class="row mb-4">
+						<div class="col">
+							<div data-mdb-input-init class="form-outline mb-4">
+								<label class="form-label" for="form6Example7">Category</label>
+
+								<div class="form-outline">
+									<select class="form-control" required name="category"
+										id="category">
+										
+										<option th:value="${record.category.categoryId}" th:text="${record.category.categoryName}"> </option>
+										<option th:each="element : ${categoryList}" th:value="${element.categoryId}" th:text="${element.categoryName}"> </option>
+												
+												
+												
+
+									</select>
+									<div id="paymentTypeError" style="display: none; color: red;">Please
+										select a city.</div>
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<div data-mdb-input-init class="form-outline mb-4">
+								<label class="form-label" for="form6Example7">Label</label>
+
+								<div class="form-outline">
+									<select class="form-control" name="label" id="label"
+										required>
+										
+										
+										<option th:value="${record.label.labelId}" th:text="${record.label.labelName}"> </option>
+										<option th:each="element : ${labelList}" th:value="${element.labelId}" th:text="${element.labelName}"> </option>
+											
+										
+										
+										
+												
+
+									</select>
+									<div id="paymentTypeError" style="display: none; color: red;">Please
+										select a city.</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<div class="row mb-4">
+						<div class="col">
+							<label style="display: block;">Select Date: </label>
+							   <input type="text" id="datepicker" name="datepicker" style="display: inline; width: 95%;" th:value="${record.date}">
+							  <i class="fa fa-calendar " id="datepicker-icon"></i>
+						</div>
+						<div class="col">
+							<label>Select time: </label>
+							
+				                <div class="input-group date" id="timePicker">
+				                
+				                    <input type="text" class="form-control timePicker" name="time_Edit" id="time" th:value="${record.time}" required>
+				                    <span class="input-group-addon ps-1 pt-1" ><i class="fa fa-clock-o" aria-hidden="true" ></i></span>
+				                </div>
+
+						</div>
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+		<div class="col-md-4">
+			<!-- form for right side -->
+
+			<div class="form-begins right-form-container">
+				<!-- 2 column grid layout with text inputs for the first and last names -->
+
+
+				<!-- Text input -->
+				<div data-mdb-input-init class="form-outline mb-4">
+					<label class="form-label" for="form6Example3"> Payer</label> <input
+						type="text" id="payer" class="form-control" name="payer" th:value="${record.payer}" />
+
+				</div>
+
+				<!-- Message input -->
+				<div data-mdb-input-init class="form-outline mb-4">
+					<label class="form-label" for="form6Example7">Note</label>
+					<textarea class="form-control" id="note" rows="2"
+						name="note"  th:text="${record.note}" > </textarea>
+
+				</div>
+
+				<!-- Text input -->
+				<div data-mdb-input-init class="form-outline mb-4">
+					<label class="form-label" for="form6Example7">Payment Type</label>
+
+					<div class="form-outline">
+						<select class="form-control" name="payment_type"
+							id="payment_type" required>
+							
+							
+								<option th:value="${record.paymentType.id}" th:text="${record.paymentType.name}"> </option>
+								<option th:each="element : ${paymentTypeList}" th:value="${element.id}" th:text="${element.name}"> </option>
+												
+										
+								
+						</select>
+						<div id="paymentTypeError" style="display: none; color: red;">Please
+							select a city.</div>
+					</div>
+				</div>
+
+
+
+				<!-- Text input -->
+				<div data-mdb-input-init class="form-outline mb-4">
+					<label class="form-label" for="form6Example7">Payment
+						Status</label>
+
+					<div class="form-outline">
+						<select class="form-control" name="payment_status"
+							id="payment_status" required>
+							
+								<option th:value="${record.paymentStatus.id}" th:text="${record.paymentStatus.name}"> </option>
+								<option th:each="element : ${paymentStatusList}" th:value="${element.id}" th:text="${element.name}"> </option>
+												
+										
+							
+								
+						</select>
+						<div id="paymentStatusError" style="display: none; color: red;">Please
+							select a city.</div>
+					</div>
+				</div>
+
+
+
+				<div data-mdb-input-init class="form-outline mb-4">
+					<label class="form-label" for="form6Example3"> Place</label> <input
+						type="text" id="place" class="form-control" name="place" th:value="${record.place}" />
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+
+</div>
+
+
+
+</span>
+
+
+</body>
+</html>

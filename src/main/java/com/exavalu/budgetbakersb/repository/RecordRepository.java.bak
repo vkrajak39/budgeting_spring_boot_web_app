@@ -1,0 +1,39 @@
+package com.exavalu.budgetbakersb.repository;
+
+import com.exavalu.budgetbakersb.entity.Record; // Import the Record entity
+import com.exavalu.budgetbakersb.entity.RecordType;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+public interface RecordRepository extends JpaRepository<Record, Integer> {
+	@Query("SELECT SUM(r.amount) FROM Record r WHERE r.userId = ?1 AND r.recordTypeId = ?2 AND r.date BETWEEN ?3 AND ?4 AND r.accountId = ?5")
+	double sumAmountByUserIdAndRecordTypeAndDateBetweenAndAccountId(int userId, int recordTypeId, String date1,
+			String date2, int accountId);
+
+	@Query("SELECT SUM(r.amount) FROM Record r WHERE r.toAccountId NOT IN (SELECT a.id FROM Account a WHERE a.userId = ?1) AND r.userId = ?1 AND r.recordTypeId =3 AND r.date BETWEEN ?2 AND ?3 AND r.accountId = ?4")
+	double sumNegativeTransferAmount(int userId, String givenDate1, String givenDate2, int accountId);
+
+	@Query("SELECT SUM(r.amount) FROM Record r " +
+	           "WHERE r.toAccountId IN (SELECT a.id FROM Account a WHERE a.userId = ?1) " +
+	           "AND r.accountId NOT IN (SELECT a.id FROM Account a WHERE a.userId = ?1) " +
+	           "AND r.date BETWEEN ?2 AND ?3 " +
+	           "AND r.accountId = ?4")
+	    double sumIncomeTransferAmount(int userId, String givenDate1, String givenDate2, int accountId);
+	
+	@Query("SELECT c.categoryName, " +
+	           "SUM(r.amount) / (SELECT SUM(r2.amount) FROM Record r2 WHERE r2.userId = ?1 AND r2.recordTypeId = 1 AND r2.date BETWEEN ?2 AND ?3) * 100 AS percentageExpense " +
+	           "FROM Record r " +
+	           "JOIN r.category c " +
+	           "WHERE r.userId = ?1 AND r.recordTypeId = 1 AND r.date BETWEEN ?2 AND ?3 " +
+	           "GROUP BY c.categoryName")
+	    List<Object[]> getExpenseCategoryPercentage(int userId, String givenDate1, String givenDate2);
+	    
+	    
+//	    return list of records of user
+	    List<Record> findByUserId(int userId);
+ 
+}

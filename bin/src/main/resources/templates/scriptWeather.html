@@ -1,0 +1,40 @@
+<script>
+  // Define API key and base URL
+  const apiKey = "your_openweathermap_api_key";
+  const baseUrl1 = "https://api.openweathermap.org/data/2.5/weather";
+
+  // Define default location
+  const defaultLocation = "kolkata";
+
+  // Function to fetch and display weather data
+  function fetchWeatherData(location) {
+    // Construct API URL
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=kolkata&appid=e8aa76aa016697b6c8fe58baed75a6be&units=metric`;
+
+    // Fetch weather data using jQuery AJAX
+    $.ajax({
+      url: apiUrl,
+      method: "GET",
+      success: function (data) {
+        // Display weather data
+        const weatherInfo =
+          '<p style="margin-bottom: 0;">' +
+          data.name +
+          "</p>" +
+          ":" +
+          '<p class="ml-2" style="margin-bottom: 0;">' +
+          data.main.temp +
+          "&#176;C</p>";
+        $("#weather-info").html(weatherInfo);
+      },
+      error: function () {
+        $("#weather-info").html("Failed to fetch weather data.");
+      },
+    });
+  }
+
+  // Fetch weather data for default location on page load
+  $(document).ready(function () {
+    fetchWeatherData(defaultLocation);
+  });
+</script>

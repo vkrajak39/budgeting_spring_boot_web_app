@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html  xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<span th:fragment="recordSidebarFragment">
+
+
+
+	
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+}
+
+.sidebar {
+	height: 100vh;
+	width: 200px;
+	/* position:; */
+	top: 0;
+	left: 0;
+	background-color: white; /* Change background color to white */
+	padding-top: 20px;
+}
+
+.dropdown-btn {
+	width: 100%;
+	background-color: #f1f1f1; /* Change background color to light gray */
+	color: black; /* Change text color to black */
+	padding: 10px;
+	text-align: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+.dropdown-container {
+	display: none;
+	padding-left: 10px;
+}
+
+.dropdown-container a {
+	display: block;
+	color: black; /* Change text color to black */
+	padding: 10px;
+	text-decoration: none;
+}
+
+.dropdown-btn.active+.dropdown-container {
+	display: block;
+}
+
+@media ( max-width : 768px) {
+	.sidebar {
+		width: 100%;
+		height: auto;
+		position: relative;
+	}
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row justify-content-left"
+	style="min-height: 100vh; height: auto;">
+
+	<nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+		<div class="position-sticky">
+			
+			
+			
+			
+			
+			
+			<button class="dropdown-btn">Accounts</button>
+			<div class="dropdown-container">
+				<ul>
+					
+				
+					<li style="list-style-type: none;"th:each="element : ${accountList}" >
+					<input  class="common-selector accountCheckbox"  type="checkbox" th:text="${element.name}" th:value="${element.id}"/>
+					</li>
+			
+
+				</ul>
+			</div>
+			
+			
+			<button class="dropdown-btn">Categories</button>
+			<div class="dropdown-container">
+				<ul>
+					
+				
+				
+					<li style="list-style-type: none;"  th:each="element : ${categoryList}" >
+					<input type="checkbox" class="common-selector categoryCheckbox"  th:text="${element.categoryName}" th:value="${element.categoryId}"/>
+					</li>
+				</ul>
+			</div>
+			
+			
+			<button class="dropdown-btn">Currency</button>
+			<div class="dropdown-container">
+				<ul>
+					
+
+					<li style="list-style-type: none;"  th:each="element : ${currencyList}" >
+					<input type="checkbox" class="common-selector currencyCheckbox"  th:text="${element.currency_name}" th:value="${element.id}"/>
+					</li>
+
+				</ul>
+			</div>
+
+
+			<button class="dropdown-btn">Payment Types</button>
+			<div class="dropdown-container">
+				<ul>
+					
+
+					<li style="list-style-type: none;"  th:each="element : ${paymentTypeList}" >
+					<input type="checkbox" class="common-selector paymentTypeCheckbox"  th:text="${element.name}" th:value="${element.id}"/>
+					</li>
+
+				</ul>
+			</div>
+
+
+			<button class="dropdown-btn">Payment Status</button>
+			<div class="dropdown-container">
+				<ul>
+					
+
+					<li style="list-style-type: none;"  th:each="element : ${paymentStatusList}" >
+					<input type="checkbox" class="common-selector paymentStatusCheckbox"  th:text="${element.name}" th:value="${element.id}"/>
+					</li>
+
+				</ul>
+			</div>
+
+			<button class="dropdown-btn">Labels</button>
+			<div class="dropdown-container">
+				<ul>
+					
+
+					<li style="list-style-type: none;"  th:each="element : ${labelList}" >
+					<input type="checkbox" class="common-selector labelCheckbox"  th:text="${element.labelName}" th:value="${element.labelId}"/>
+					</li>
+
+				</ul>
+			</div>
+			
+			<button class="dropdown-btn">Record Type</button>
+			<div class="dropdown-container">
+				<ul>
+					
+
+					<li style="list-style-type: none;"  th:each="element : ${recordTypeList}" >
+					<input type="checkbox" class="common-selector recordTypeCheckbox"  th:text="${element.recordTypeName}" th:value="${element.recordTypeId}"/>
+					</li>
+
+				</ul>
+			</div>
+			
+			
+			
+
+		</div>
+	</nav>
+</div>
+
+	
+
+
+<!-- sidebar scripts starts here -->
+
+	<!--  causing problem with admin tab in header.jsp   similar script of higher version 5.3.3 was there
+
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+-->
+<!-- end of causing problem with admin tab in header.jsp   similar script of higher version 5.3.3 was there
+
+-->
+
+
+	<!-- dropdown collapse code  -->
+	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		var dropdowns = document.querySelectorAll(".dropdown-btn");
+
+		dropdowns.forEach(function(dropdown) {
+			dropdown.addEventListener("click", function() {
+				
+				
+				//alert("button clicked")
+				// Collapse all other dropdowns
+				dropdowns.forEach(function(otherDropdown) {
+					if (otherDropdown !== dropdown) {
+						otherDropdown.classList.remove("active");
+					}
+				});
+
+				// Toggle active class for the clicked dropdown
+				this.classList.toggle("active");
+			});
+		});
+	});
+</script>
+
+	<!-- sidebar scripts ends here -->
+
+
+
+
+
+
+<script>
+
+$(document).ready(function(){
+			
+				//alert("ready function called");
+				//filterData();
+				
+				firstTimeLoadCurrentMonthRecord();	
+				
+				
+				// Function to format date as dd/mm/yyyy used to dispaly current month record
+				function formatDate(date) {
+				  var day = date.getDate();
+				  var month = date.getMonth() + 1;
+				  var year = date.getFullYear();
+
+				  // Ensure leading zero for single digit days and months
+				  if (day < 10) {
+				    day = '0' + day;
+				  }
+				  if (month < 10) {
+				    month = '0' + month;
+				  }
+
+				  return day + '/' + month + '/' + year;
+				}
+				
+				
+				
+				function firstTimeLoadCurrentMonthRecord(){
+					//alert("firstTimeLoadCurrentMonthRecord called")
+					
+					
+					//calculating 1st day  and last day of the month
+					var currentDate = new Date();
+					
+					// Get the first day of the current month
+					var firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+					
+					// Get the last day of the current month
+					var lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+					
+					// Format the dates in dd/mm/yyyy format
+					var formattedFirstDay = formatDate(firstDayOfMonth);
+					var formattedLastDay = formatDate(lastDayOfMonth);
+					
+					
+					//$('#datepicker_starting_date').val(formattedFirstDay);
+					//$('#datepicker_ending_date').val(formattedLastDay);
+					
+					
+					
+					
+					var action = 'fetch_record'
+					var accountCheckedList = [];			//getFilter('accountCheckbox');
+					var categoryCheckedList =[]; 			// getFilter('categoryCheckbox');
+					var currencyCheckedList = [];			//getFilter('currencyCheckbox');
+					var paymentTypeCheckedList =[];   		//getFilter('paymentTypeCheckbox');
+					var paymentStatusCheckedList =[];		// getFilter('paymentStatusCheckbox');
+					var labelCheckedList =[];				// getFilter('labelCheckbox');
+					var recordTypeCheckedList = [];			//getFilter('recordTypeCheckbox');
+					var monthCheckedList = [];				//getFilter('monthCheckbox');
+					var startingDate =formattedFirstDay ;	//$('#datepicker_starting_date').val();
+					var endingDate = formattedLastDay	;	//$('#datepicker_ending_date').val();
+					//alert(startingDate);
+					//alert(endingDate);
+					//console.log(accountCheckedList);
+					
+					
+					$.ajax({
+					    url: '/records/filterRecordData', // URL of your server-side controller
+					    type: 'POST',
+					    contentType: 'application/json',
+					    data: JSON.stringify({
+					    	action: action,
+					    	accountCheckedList: accountCheckedList, // Example list of integers
+					    	categoryCheckedList:  categoryCheckedList, // Example list of integers
+					    	currencyCheckedList : currencyCheckedList,
+					    	paymentTypeCheckedList : paymentTypeCheckedList,
+					    	paymentStatusCheckedList : paymentStatusCheckedList,
+					    	labelCheckedList : labelCheckedList,
+					    	recordTypeCheckedList: recordTypeCheckedList,//recordTypeCheckedList,
+					    	monthCheckedList : monthCheckedList , //monthCheckedList,
+					    	startingDate:startingDate,
+					    	endingDate:endingDate,
+					    	
+					    	
+					    	
+					        searchString: 'exampleString' // Example string
+					    }),
+					    success: function(data) {
+					        // Handle success response
+					      //  alert("ajax successfully executed");
+					       // console.log(data);
+					       
+					    	$('.filter_record_table').html(data);
+					    },
+					    error: function(xhr, status, error) {
+					        // Handle error response
+					        console.error(status, error);
+					    }
+					});
+					
+			
+				}
+				
+		
+		
+				
+				
+				function filterData(){
+					//alert("filter data called")
+					var action = 'fetch_record'
+					var accountCheckedList = getFilter('accountCheckbox');
+					var categoryCheckedList = getFilter('categoryCheckbox');
+					var currencyCheckedList = getFilter('currencyCheckbox');
+					var paymentTypeCheckedList = getFilter('paymentTypeCheckbox');
+					var paymentStatusCheckedList = getFilter('paymentStatusCheckbox');
+					var labelCheckedList = getFilter('labelCheckbox');
+					var recordTypeCheckedList = getFilter('recordTypeCheckbox');
+					var monthCheckedList = getFilter('monthCheckbox');
+					var startingDate = $('#datepicker_starting_date').val();
+					var endingDate = $('#datepicker_ending_date').val();
+					//alert(startingDate);
+					//alert(endingDate);
+					//console.log(accountCheckedList);
+					
+					
+					$.ajax({
+					    url: '/records/filterRecordData', // URL of your server-side controller
+					    type: 'POST',
+					    contentType: 'application/json',
+					    data: JSON.stringify({
+					    	action: action,
+					    	accountCheckedList: accountCheckedList, // Example list of integers
+					    	categoryCheckedList:  categoryCheckedList, // Example list of integers
+					    	currencyCheckedList : currencyCheckedList,
+					    	paymentTypeCheckedList : paymentTypeCheckedList,
+					    	paymentStatusCheckedList : paymentStatusCheckedList,
+					    	labelCheckedList : labelCheckedList,
+					    	recordTypeCheckedList: recordTypeCheckedList,//recordTypeCheckedList,
+					    	monthCheckedList : monthCheckedList , //monthCheckedList,
+					    	startingDate:startingDate,
+					    	endingDate:endingDate,
+					    	
+					    	
+					    	
+					        searchString: 'exampleString' // Example string
+					    }),
+					    success: function(data) {
+					        // Handle success response
+					       // alert("ajax successfully executed");
+					       // console.log(data);
+					       
+					    	$('.filter_record_table').html(data);
+					    },
+					    error: function(xhr, status, error) {
+					        // Handle error response
+					        console.error(status, error);
+					    }
+					});
+					
+			
+				}
+						
+						
+						
+				function getFilter(className)
+				{
+					//alert("get filter called with class name  "+className);
+					var filter =[];
+					
+					var class_name= '.'+className+':checked';
+					
+					//alert(class_name);
+					
+					$(class_name).each(function(){
+						
+						//alert("checked pressed");
+						filter.push($(this).val());
+					});
+					return filter;
+				}
+		
+		
+				$('.common-selector').click(function(){
+					filterData();
+				})
+		
+		});
+		
+		
+		
+	
+		
+		
+		
+</script>
+
+
+</span>
+
+</body>
+
+
+
+
+
+
+</html>

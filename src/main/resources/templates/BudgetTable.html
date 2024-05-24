@@ -1,0 +1,18 @@
+<div th:fragment="BudgetTable(budgetArray)" class="w-100">
+<table class="w-75">
+	<thead class="budget-table-header">
+		<tr>
+			<th class="px-1 py-2">Category</th>
+			<th class="px-1 py-2">Budget</th>
+		</tr>
+	</thead>
+	<tbody class="budget-table-body">
+		
+			<tr th:each="budget : ${budgetArray}" 		th:id="'budget-' + ${budget.id}">
+			                <td class="px-1 py-2" th:text="${budget.category.categoryName}"></td>
+			                <td class="px-1 py-2 budgetAmount" contenteditable="true" th:text="${budget.budgetAmount}" ></td>
+			</tr>
+		
+	</tbody>
+</table>
+</div>	

@@ -1,0 +1,22 @@
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<form th:action="@{/UpdatePaymentType}" method="post">
+				<div class="mb-3">
+					<label for="paymentTypeSelect" class="form-label">Select
+						Payment Type</label> <select class="form-select" id="paymentTypeId" name="paymentTypeId" required>
+						<option value="0">--Select a Payment Type --</option>
+						<option th:each="paymentType : ${PAYMENTTYPELIST}" th:value="${paymentType.id}" th:text="${paymentType.name}"></option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="paymentTypeName" class="form-label">Edit
+						Payment Type Name</label> <input type="text" class="form-control"
+						id="paymentTypeName" name="paymentTypeName" required>
+				</div>
+				<button type="submit" class="btn btn-primary"
+					id="editPaymentTypeBtn">Edit</button>
+			</form>
+		</div>
+	</div>
+</div>

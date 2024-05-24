@@ -1,0 +1,170 @@
+<!-- Admin side function and scripts for CRUD -->
+
+<script>
+  function closeAdmin() {
+    // Reloads the page
+    location.reload();
+  }
+</script>
+
+<script>
+  //script for category
+
+  function category(button) {
+    // Reset modal content
+    resetModal("categoryModal");
+
+    // Update modal title
+    var categoryCRUD = $(button).attr("id");
+    console.log("This is categoryCRUD:", categoryCRUD);
+    var modalTitle = document.querySelector("#categoryModal .modal-title");
+
+    switch (categoryCRUD) {
+      case "CreateCategory":
+        modalTitle.textContent = "Create Category";
+        break;
+      case "ReadCategory":
+        modalTitle.textContent = "Read Category";
+        break;
+      case "EditCategory":
+        modalTitle.textContent = "Edit Category";
+        break;
+    }
+
+    $.ajax({
+      url: "/Category",
+      type: "GET",
+      data: {
+        categoryCRUD: categoryCRUD,
+      },
+      success: function (data) {
+        var modalBody = document.querySelector("#categoryModal .modal-body");
+        modalBody.innerHTML = data;
+
+        // Show the modal
+        $("#categoryModal").modal("show");
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+      },
+    });
+  }
+
+  function resetModal(modalId) {
+    // Reset modal content
+    var modalTitle = document.querySelector("#" + modalId + " .modal-title");
+    modalTitle.textContent = "";
+
+    var modalBody = document.querySelector("#" + modalId + " .modal-body");
+    modalBody.innerHTML = "";
+  }
+</script>
+
+
+<script>
+  //script for label
+
+  function label(button) {
+    // Reset modal content
+    resetModal("labelModal");
+
+    // Update modal title
+    var labelCRUD = $(button).attr("id");
+    console.log("This is labelCRUD:", labelCRUD);
+    var modalTitle = document.querySelector("#labelModal .modal-title");
+
+    switch (labelCRUD) {
+      case "CreateLabel":
+        modalTitle.textContent = "Create Label";
+        break;
+      case "ReadLabel":
+        modalTitle.textContent = "Read Label";
+        break;
+      case "EditLabel":
+        modalTitle.textContent = "Edit Label";
+        break;
+    }
+
+    $.ajax({
+      url: "/Label",
+      type: "GET",
+      data: {
+        labelCRUD: labelCRUD,
+      },
+      success: function (data) {
+        var modalBody = document.querySelector("#labelModal .modal-body");
+        modalBody.innerHTML = data;
+
+        // Show the modal
+        $("#labelModal").modal("show");
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+      },
+    });
+  }
+
+  function resetModal(modalId) {
+    // Reset modal content
+    var modalTitle = document.querySelector("#" + modalId + " .modal-title");
+    modalTitle.textContent = "";
+
+    var modalBody = document.querySelector("#" + modalId + " .modal-body");
+    modalBody.innerHTML = "";
+  }
+</script>
+
+
+<script>
+  //script for payment Type
+
+  function paymentType(button) {
+    // Reset modal content
+    resetModal("paymentTypeModal");
+
+    // Update modal title
+    var paymentTypeCRUD = $(button).attr("id");
+    console.log("This is paymentCRUDType:", paymentTypeCRUD);
+    var modalTitle = document.querySelector("#paymentTypeModal .modal-title");
+
+    switch (paymentTypeCRUD) {
+      case "CreatePaymentType":
+        modalTitle.textContent = "Create Payment Type";
+        break;
+      case "ReadPaymentType":
+        modalTitle.textContent = "Read Payment Type";
+        break;
+      case "EditPaymentType":
+        modalTitle.textContent = "Edit Payment Type";
+        break;
+    }
+
+    // Load content from editPaymentType.jsp using AJAX
+    $.ajax({
+      url: "/PaymentType",
+      type: "GET",
+      data: {
+        paymentTypeCRUD: paymentTypeCRUD,
+      },
+      success: function (data) {
+        var modalBody = document.querySelector("#paymentTypeModal .modal-body");
+        modalBody.innerHTML = data;
+
+        // Show the modal
+        $("#paymentTypeModal").modal("show");
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+      },
+    });
+  }
+
+  function resetModal(modalId) {
+    // Reset modal content
+    var modalTitle = document.querySelector("#" + modalId + " .modal-title");
+    modalTitle.textContent = "";
+
+    var modalBody = document.querySelector("#" + modalId + " .modal-body");
+    modalBody.innerHTML = "";
+  }
+</script>

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form th:action="@{/UpdateCategory}" method="post">
+                <div class="mb-3">
+                    <label for="categorySelect" class="form-label">Select Category</label>
+                    <select class="form-select" id="categoryId" name="categoryId" required>
+                        <option value="0">--Select a Category--</option>
+                        <option th:each="category : ${CATEGORYLIST}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="categoryName" class="form-label">Edit Category Name</label>
+                    <input type="text" class="form-control" id="categoryName" name="categoryName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="recordType" class="form-label">Category Type</label>
+                    <select class="form-select" id="recordType" name="recordType" required>
+                        <option value="0">Select Type</option>
+                        <option value="1">Expense</option>
+                        <option value="2">Income</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Edit</button>
+            </form>
+        </div>
+    </div>
+</div>
+

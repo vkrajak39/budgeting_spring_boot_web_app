@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <h5 style="margin-bottom: 20px;">Label Name</h5>
+                    <ul class="list-group">
+                        <!-- Iterate over labelList using Thymeleaf -->
+                        <li class="list-group-item" th:each="label : ${LABELLIST}" style="transition: background-color 0.3s ease; cursor: pointer; border-top: none; border-right: 2px solid #dee2e6;" th:text="${label.labelName}"></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h5 style="margin-bottom: 20px;">Category</h5>
+                    <ul class="list-group">
+                        <!-- Iterate over categoryList using Thymeleaf -->
+                        <li class="list-group-item" th:each="label : ${LABELLIST}" style="transition: background-color 0.3s ease; cursor: pointer; border-top: none;" th:text="${label.categoryName}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

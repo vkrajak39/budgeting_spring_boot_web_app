@@ -1,0 +1,53 @@
+<div class="card">
+	<div class="card-body">
+		<h2 style="text-align: center;">Expenses</h2>
+		<h6 th:text="&#8377;+${@numberUtils.formatDecimal(session.EXPENSEUSER,'#,##,###,##0.00')}" style="text-align: center;">
+		</h6>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-1 col-xs-12 content" th:fragment="content">
+					<div id="chartContainerPie" style="height: 370px; width: 100%;"></div>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+	</div>
+</div>
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	// Convert Java data to JSON
+	var expenseCategory = /*[[${session.EXPENSECATEGORY}]]*/ {};
+	var expenseUser = /*[[${session.EXPENSEUSER}]]*/ 0;
+
+	// Convert expenseCategory to an array of objects for CanvasJS
+	var dataPoints = Object.entries(expenseCategory).map(([label, value]) => ({
+		name: label, // Set the name property to the label
+		y: value
+	}));
+
+	var df = new Intl.NumberFormat('en-IN', {
+		style: 'currency',
+		currency: 'INR'
+	});
+
+	// Render chart
+	var chart = new CanvasJS.Chart("chartContainerPie", {
+		animationEnabled: true,
+		data: [{
+			type: "pie",
+			showInLegend: true,
+			legendText : "{name} {y}%",
+			toolTipContent: "{name}: <strong>{y}%</strong>", // Change to use name property
+			startAngle: 240,
+			yValueFormatString: "##0.00\"%\"",
+			indexLabel: "{name} ({y})",
+			dataPoints: dataPoints
+		}]
+	});
+	chart.render();
+
+	/*]]>*/
+</script>

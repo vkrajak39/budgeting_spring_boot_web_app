@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form th:action="@{/AddLabel}" method="post">
+                <div class="mb-3">
+                    <label for="labelName" class="form-label">Label Name</label>
+                    <input type="text" class="form-control" id="labelName" name="labelName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Label Type</label>
+                    <select class="form-select" id="category" name="category" required>
+                        <option value="0">Select Type</option>
+                        <option th:each="category : ${CATEGORYLIST}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+                        <!-- You can add more options if needed -->
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+</div>

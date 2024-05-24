@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form action="/AddCategory" method="post">
+                <div class="mb-3">
+                    <label for="categoryName" class="form-label">Category Name</label>
+                    <input type="text" class="form-control" id="categoryName" name="categoryName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="recordType" class="form-label">Category Type</label>
+                    <select class="form-select" id="recordType" name="recordType" required>
+                        <option value="0">Select Type</option>
+                        <option value="1">Expense</option>
+                        <option value="2">Income</option>
+                        <option value="3">Transfer</option>
+                        <option value="4">Starting</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+</div>

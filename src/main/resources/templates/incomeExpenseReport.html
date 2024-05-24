@@ -1,0 +1,58 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+</head>
+
+<!-- Income and Expense Report -->
+<h2 class="mb-4 dynamicElement" id="LoadIncomesAndExpenseReport">Income and Expense Report</h2>
+
+<!-- Table for detailed data -->
+<div class="table-responsive mt-4">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Current Period</th>
+            <th>Previous Period</th>
+            <!-- Add more headers if needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <!-- Add table data here -->
+            <td>Income</td>
+            <td>&#8377; <span th:text="${AMOUNT}"></span></td>
+            <td>&#8377; 0</td>
+            <!-- Add more data cells if needed -->
+        </tr>
+        <!-- Add more rows of data if needed -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Total Expenses -->
+<h2 class="mt-4 mb-4">Total Expenses</h2>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Category Name</th>
+            <th>Current Period</th>
+            <th>Previous Period</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over categoryList and cumulativeExpense -->
+        <tr th:each="category, index : ${CATEGORYLIST}">
+            <td th:text="${category.categoryName}"></td>
+            <td th:text="'&#8377;' + ${CUMULATIVEEXPENSE[__${index.index}__]}"></td>
+            <td>&#8377; 0</td>
+            
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</html>

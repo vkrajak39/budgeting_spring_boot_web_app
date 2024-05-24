@@ -1,0 +1,170 @@
+<header class="p-3 mb-3 border-bottom">
+	<div
+		class="d-flex flex-wrap align-items-center justify-content-between w-100">
+		<a href="Dashboard"
+			class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+			<img
+			src="https://e7.pngegg.com/pngimages/13/299/png-clipart-money-management-expense-android-angle-personal-finance-thumbnail.png"
+			height="30" alt="MDB Logo" loading="lazy" />
+		</a>
+		<ul
+			class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+			<li th:each="menu : ${session.MENU}"><a
+				th:href="${menu.menuLink}" class="nav-link px-2 link-secondary">
+					<span th:text="${menu.menuName}"></span>
+			</a></li>
+		</ul>
+
+		<div class="dropdown">
+			<button class="btn dropdown-toggle" type="button" id="adminDropdown"
+				data-bs-toggle="dropdown" aria-expanded="false"
+				style="margin-right: 10px; color: red;">&#9881; Setup</button>
+			<ul class="dropdown-menu" >
+				<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+					data-bs-target="#categoryModal"><i class="fas fa-pencil-alt"></i>
+						Category</a></li>
+	
+				<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+					data-bs-target="#labelModal"><i class="fas fa-pencil-alt"></i>
+						Label</a></li>
+				<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+					data-bs-target="#paymentTypeModal"><i class="fas fa-pencil-alt"></i>
+						Payment Type</a></li>
+				<li><a class="dropdown-item" href="AdjustBudget"><i
+						class="fas fa-pencil-alt"></i> Adjust Budget</a></li>
+				<li><a class="dropdown-item" href="BudgetVSActual"><i
+						class="fas fa-pencil-alt"></i> Budget VS Actual</a></li>
+			</ul>
+		</div>
+		
+		<!-- modal for Category -->
+		<div class="modal fade" id="categoryModal" tabindex="-1"
+			aria-labelledby="categoryModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5) !important;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="categoryModalLabel">Manage
+							Categories</h5>
+
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="CreateCategory" onclick="category(this)">&#x26A1;
+									Create Category</button>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="ReadCategory" onclick="category(this)">&#x1F4D6;
+									Read Category</button>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="EditCategory" onclick="category(this)">&#x270F;
+									Edit Category</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" id="closeModalBtn" onclick="closeAdmin()"
+							data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- modal for Labels -->
+		<div class="modal fade" id="labelModal" tabindex="-1"
+			aria-labelledby="labelModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="labelModalLabel">Manage Labels</h5>
+
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="CreateLabel" onclick="label(this)">&#x26A1; Create
+									Label</button>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="ReadLabel" onclick="label(this)">&#x1F4D6; Read
+									Label</button>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="EditLabel" onclick="label(this)">&#x270F; Edit
+									Label</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" id="closeModalBtn" onclick="closeAdmin()"
+							data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	
+
+		<!-- modal for 	Payment Types -->
+		<div class="modal fade" id="paymentTypeModal" tabindex="-1"
+			aria-labelledby="paymentTypeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="paymentTypeModalLabel">Manage
+							Payment Types</h5>
+
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="CreatePaymentType" onclick="paymentType(this)">&#x26A1;
+									Create Payment Type</button>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="ReadPaymentType" onclick="paymentType(this)">&#x1F4D6;
+									Read Payment Type</button>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block"
+									id="EditPaymentType" onclick="paymentType(this)">&#x270F;
+									Edit Payment Type</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" id="closeModalBtn" onclick="closeAdmin()"
+							data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+
+
+		<div th:replace="headerModal"></div>
+	</div>
+</header>

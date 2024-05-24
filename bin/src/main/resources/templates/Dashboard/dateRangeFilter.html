@@ -1,0 +1,97 @@
+<style>
+    #reportrange {
+        margin: auto;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light pt-8 align-middle" style="height: 95px; padding-left: 20px">
+    <div id="reportrange"
+         style="background: #eee; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 20%">
+        <i class="bi bi-calendar"></i>&nbsp; <span></span> <i class="bi bi-caret-down-fill"></i>
+    </div>
+</nav>
+
+<script th:inline="javascript">
+	var start = moment();
+		var end = moment();
+		function pageRedirect(startDate, endDate) {
+			// Construct the URL with startDate and endDate parameters
+			// Get the query string from window.location.search
+			var queryString = window.location.search;
+
+			// Remove the leading '?' character
+			queryString = queryString.substring(1);
+			console.log(queryString);
+
+			// Split the query string into individual parameters
+			var params = queryString.split("&");
+	
+			// Create an object to store the parameters
+			var paramsObject = {};
+	
+			// Loop through each parameter and split it into key-value pairs
+			for (var i = 0; i < params.length; i++) {
+				var pair = params[i].split("=");
+				var key = decodeURIComponent(pair[0]); // Decode the key
+				var value = decodeURIComponent(pair[1]); // Decode the value
+				paramsObject[key] = value; // Add the key-value pair to the object
+			}
+	
+			// Now you can access individual parameters using their keys
+			//console.log(paramsObject["param1"]); // Access the value of "param1"
+			//console.log(paramsObject["param2"]); // Access the value of "param2"
+	
+			var url = "Dashboard?date=" + startDate.format('DD/MM/YYYY') + " - "
+					+ endDate.format('DD/MM/YYYY');
+			var accUrl = "DashboardAccount?id=" + paramsObject["id"] + "&"
+					+ "date=" + startDate.format('DD/MM/YYYY') + " - "
+					+ endDate.format('DD/MM/YYYY');
+			// Redirect to the constructed URL
+			if (window.location.pathname === "/Dashboard" || window.location.pathname === "/BudgetBakers/Login" )
+				window.location.href = url;
+			else if (window.location.pathname === "/DashboardAccount")
+				window.location.href = accUrl;
+	
+		}
+
+    $(function () {
+        /*<![CDATA[*/
+        var date = /*[[${#strings.isEmpty(session.DATE) ? #dates.format(#dates.createNow(), 'MM/dd/yyyy') : session.DATE}]]*/ '';
+        $('#reportrange span').html(date);
+
+        $('#reportrange')
+            .daterangepicker({
+                "showDropdowns": true,
+                "showWeekNumbers": true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                "locale": {
+                    "format": "DD/MM/YYYY",
+                    "separator": " - ",
+                    "applyLabel": "Apply",
+                    "cancelLabel": "Cancel",
+                    "fromLabel": "From",
+                    "toLabel": "To",
+                    "customRangeLabel": "Custom",
+                    "weekLabel": "W",
+                    "daysOfWeek": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+                    "monthNames": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                    "firstDay": 1
+                },
+                "alwaysShowCalendars": true,
+                "startDate": "04/05/2024",
+                "endDate": "04/11/2024"
+            });
+        $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+            // Call the pageRedirect function with start and end dates
+            pageRedirect(picker.startDate, picker.endDate);
+        });
+        /*]]>*/
+    });
+</script>

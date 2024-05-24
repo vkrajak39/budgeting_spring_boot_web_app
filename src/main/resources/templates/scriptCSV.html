@@ -1,0 +1,51 @@
+<script>
+	function handleFiles() {
+		$("#fileinput").click();
+	}
+
+	function handleChange() {
+		if ($("#fileinput").val()) {
+			$("#importBtn").prop("disabled", false);
+		} else {
+			$("#importBtn").prop("disabled", true);
+		}
+	}
+
+	function handleImportCSV() {
+		var file = $("#fileinput")[0].files[0];
+		console.log(file)
+		if (file) {
+			var formData = new FormData();
+			formData.append("csvFile", file);
+
+			$.ajax({
+				url : "/records/import",
+				type : "POST",
+				data : formData,
+				contentType : false,
+				processData : false,
+				xhr : function() {
+					var xhr = new window.XMLHttpRequest();
+					xhr.upload.addEventListener("progress", function(event) {
+						if (event.lengthComputable) {
+							var percent = Math
+									.round((event.loaded / event.total) * 100);
+							$("#importStatus").html(
+									"Importing... " + percent + "%");
+						}
+					}, false);
+					return xhr;
+				},
+				success : function(response) {
+					$("#importStatus").html("Import completed successfully!");
+				},
+				error : function(xhr, status, error) {
+					$("#importStatus").html(
+							"Import failed: " + xhr.responseText);
+				}
+			});
+		} else {
+			$("#importStatus").html("Please select a CSV file.");
+		}
+	}
+</script>

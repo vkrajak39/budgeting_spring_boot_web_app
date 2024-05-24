@@ -1,0 +1,127 @@
+package com.exavalu.budgetbakersb.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.exavalu.budgetbakersb.entity.Account;
+import com.exavalu.budgetbakersb.entity.AccountType;
+import com.exavalu.budgetbakersb.entity.Category;
+import com.exavalu.budgetbakersb.entity.Currency;
+import com.exavalu.budgetbakersb.entity.Label;
+import com.exavalu.budgetbakersb.entity.PaymentStatus;
+import com.exavalu.budgetbakersb.entity.PaymentType;
+import com.exavalu.budgetbakersb.entity.Record;
+import com.exavalu.budgetbakersb.repository.AccountRepository;
+import com.exavalu.budgetbakersb.repository.AccountTypeRepository;
+import com.exavalu.budgetbakersb.repository.CategoryRepository;
+import com.exavalu.budgetbakersb.repository.CurrencyRepository;
+import com.exavalu.budgetbakersb.repository.LabelRepository;
+import com.exavalu.budgetbakersb.repository.PaymentStatusRepository;
+import com.exavalu.budgetbakersb.repository.PaymentTypeRepository;
+import com.exavalu.budgetbakersb.repository.RecordRepository;
+
+
+@Service
+public class RecordServices {
+
+	@Autowired
+	CategoryRepository categoryRepository;
+	@Autowired
+	LabelRepository labelRepository;
+	
+	@Autowired
+	PaymentTypeRepository paymentTypeRepository;
+	
+	@Autowired
+	PaymentStatusRepository paymentStatusRepository;
+	
+	@Autowired
+	AccountTypeRepository accountTypeRepository;
+	
+	@Autowired
+	CurrencyRepository currencyRepository;
+	
+	@Autowired
+	AccountRepository accountRepository;
+	
+	@Autowired
+	RecordRepository recordRepository;
+	
+	
+	
+	
+	
+	public List<Category> getAllCategories()
+	{
+		
+		
+		return categoryRepository.findAll();
+	}
+
+	public List<Label> getAllLabels() {
+		// TODO Auto-generated method stub
+		return labelRepository.findAll();
+	}
+	
+	public List<PaymentType> getAllPaymentTypes()
+	{
+		return paymentTypeRepository.findAll();
+	}
+
+	public List<PaymentStatus> getAllPaymentStatus() {
+		
+		
+		return paymentStatusRepository.findAll();
+	}
+
+	public List<Currency> getAllCurrencies() {
+		// TODO Auto-generated method stub
+		return currencyRepository.findAll();
+	}
+
+	public List<AccountType> getAllAccountType() {
+		
+		return accountTypeRepository.findAll();
+	}
+
+	public List<Account> getAllAccountOfUser(int userId) {
+		
+		return accountRepository.findByUserId(userId);
+	}
+
+	public void saveRecord(Record record) {
+		
+		recordRepository.save(record);
+		
+	}
+
+	public List<Record> getAllRecordsByUserId(int userId) {
+		
+		
+		return recordRepository.findByUserId(userId);
+	
+	}
+
+	public Record getRecordByRecordId(int recordId) {
+		
+		
+		return recordRepository.getReferenceById(recordId);
+	}
+
+	public void deleteRecordById(int recordId) {
+		
+		recordRepository.deleteById(recordId);
+		
+		
+	}
+	
+	
+
+	
+	
+	
+	
+	
+}

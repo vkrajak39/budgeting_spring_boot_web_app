@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h4>Payment Types</h4>
+            <ul class="list-group">
+                <li class="list-group-item" th:each="paymentType : ${PAYMENTTYPELIST}"
+                    style="transition: background-color 0.3s ease; cursor: pointer;"
+                    onmouseover="this.style.backgroundColor='#f0f0f0';"
+                    onmouseout="this.style.backgroundColor='transparent';">
+                    <span th:text="${paymentType.name}"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

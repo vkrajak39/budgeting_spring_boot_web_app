@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
+<!-- date picker js cdn links vineet -->
+
+<!-- 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ -->
+
+
+<!--  	causing issue with time picker so blocked	
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
+
+
+
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+
+
+
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+
+
+-->
+
+<link href="" th:href="@{/css/headeredit.css}" rel="stylesheet">
+
+
+<!-- Font awsome CDN link -->
+<link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet" />
+ 
+<!-- Google Fonts vineet -->
+<link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet" />
+ 
+ 
+ 
+<!-- date picker css cdn links vineet -->
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css">
+ 
+<!-- 
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+ 
+ -->
+  
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+ 
+ 
+<!-- time picker css cdn links  vineet-->
+ 
+<!--
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css">
+     -->
+ 
+ 
+ 
+<!--
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+     -->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+   
+   
+   
+   <!-- date picker version 2 -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<!-- date picker version 2 end --> 
+
+
+</head>
+<body>
+
+
+	<!-- form starts here -->
+		<div class="container-fluid text-center">
+			<div class="row">
+
+				<form class="row g-3" action="/records/updateRecord" method="post">
+					
+					<!-- passing record id to update the record -->
+					
+					<input type="hidden" th:value="${recordId}" name="recordId"/>
+					
+
+					<!-- grid starts here -->
+
+					
+					<div th:replace="~{recordCardEditSectionPage::recordCardEditSectionPageFragment}">  </div>
+				
+
+					<!-- grid ends here -->
+
+
+
+					
+					
+
+
+					<div class="col-12 text-center">
+						<button type="submit" class="btn  modal-form-submit-button">Edit Record</button>
+						
+					</div>
+				</form>
+				
+				
+			</div>
+			<form class="row g-3 delete-form " action="/records/deleteRecord" method="post">
+			<div class="row-col  text-center ">
+				<input type="hidden" th:value="${recordId}" name="recordId"/>
+				<button type="submit" class="py-1 my-4 mb-5" id="record-delete-button" 
+				style="color: white; background-color: red; border-radius: 25px; width: 40%; border-color: red;"
+				> Delete Record </button>
+				<div id="modal-hyperlink my-5">
+					<a class="my-4" href="#" >Add and create another</a>	
+				</div>				
+			</div>
+			
+			</form>
+			<div class="row-col py-1 text-center ">
+			
+			</div>
+			
+			
+		</div>	
+
+</body>
+
+<!-- time picker js cdn script vineet -->
+
+
+
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+
+
+
+
+
+<!-- date picker script vineet 
+<script>
+	$(function() {
+		$('#datepicker').datepicker();
+	});
+</script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
+	
+
+-->
+ 
+ <!-- date picker  version 2-->
+ 
+
+<script>
+$( function() {
+	  $( "#datepicker" ).datepicker({
+	    dateFormat: "dd/mm/yy",
+	    changeMonth: true,
+	    changeYear: true
+	  });
+
+	  $( "#datepicker-icon" ).click( function() {
+	    $( "#datepicker" ).datepicker( "show" );
+	  });
+	});
+</script>
+
+
+ <!-- date picker  version 2 end-->
+
+
+
+
+<!-- loding record fields function -->
+
+
+
+
+<script>
+	/*	function template
+	 * 
+	 function showStates() {
+
+	 //getting the value selected
+	 //var countrySelected= $(this).val();
+	 var countrySelected = $("#countryList").val();
+
+	 alert("testing onchange event:: country value is "
+	 + countrySelected);
+
+	 $.ajax({
+	 url : 'LoadStates', // URL of your server-side script
+	 type : 'POST',
+	 data : {
+	 country : countrySelected
+	 },
+	 success : function(data) {
+	 // Update content of element with id 'content'
+	 $('#stateList').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+	 },
+	 error : function(xhr, status, error) {
+	 // Log errors to console
+	 console.error(status, error);
+	 }
+	 });
+
+	 }
+	
+	
+	
+
+	 $(document).ready(function(){
+	 $("#myButton").click(function(){
+	 $.ajax({
+	 url: "MyServlet",
+	 type: "GET",
+	 success: function(response){
+	 // Redirect to new page
+	 window.location.href = "newPage.jsp";
+	 },
+	 error: function(xhr, status, error){
+	 console.log("Error occurred: " + error);
+	 }
+	 });
+	 });
+	 });
+	
+	
+	
+	
+	
+	 */
+
+	function GetRecordFields() {
+		//alert('main called');
+
+		GetCurrencyList();
+		
+		//either account or account type
+		GetAccountList();
+		//GetAccountTypeList();
+		
+		
+		GetCategoryList();
+		GetPaymentStatusList();
+		GetPaymentTypeList();
+		GetLabelList();
+
+	}
+
+	function GetCurrencyList() {
+		//alert('currency list called');
+
+		$.ajax({
+			url : '/records/CurrencyList', // URL of your server-side script
+			type : 'GET',
+
+			success : function(data) {
+				// Update content of element with id 'content'
+
+				$('#currency_expense').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+				$('#currency_income').html(data);
+				$('#currency_from_account_transfer').html(data);
+				$('#currency_to_account_transfer').html(data);
+
+				//alert('success on click event of GetRecordFields()');			
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+
+	}
+
+	function GetAccountTypeList() {
+		//alert('testing on click event of GetRecordFields()');
+
+		$.ajax({
+			url : '/records/AccountTypeList', // URL of your server-side script
+			type : 'GET',
+
+			success : function(data) {
+				// Update content of element with id 'content'
+
+				$('#Account_type_expense').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+				$('#Account_type_income').html(data);
+				$('#account_type_from_account_transfer').html(data);
+				$('#account_type_to_account_transfer').html(data);
+
+				//alert('success on click event of GetRecordFields()');			
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+
+	}
+
+	function GetAccountList() {
+		//alert('testing on click event of GetRecordFields()');
+
+		$.ajax({
+			url : '/records/AccountList', // URL of your server-side script
+			type : 'GET',
+
+			success : function(data) {
+				// Update content of element with id 'content'
+
+				$('#Account_type_expense').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+				$('#Account_type_income').html(data);
+				$('#account_type_from_account_transfer').html(data);
+				$('#account_type_to_account_transfer').html(data);
+
+				//alert('success on click event of GetRecordFields()');			
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+
+	}
+
+	 function GetCategoryList() {
+		    //alert('Category List called');
+
+		    $.ajax({
+		      url: "/records/CategoryList", // URL of your server-side script
+		      type: "GET",
+
+		      success: function (data) {
+		        // Update content of element with id 'content'
+
+		        $("#category").html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+
+		      //  alert('success on click event of get category list');
+		      },
+		      error: function (xhr, status, error) {
+		        // Log errors to console
+		        console.error(status, error);
+		      },
+		    });
+		  }
+	 
+	 
+	function GetPaymentTypeList() {
+		//alert('testing on click event of GetRecordFields()');
+
+		$.ajax({
+			url : '/records/PaymentTypeList', // URL of your server-side script
+			type : 'GET',
+
+			success : function(data) {
+				// Update content of element with id 'content'
+
+				$('#payment_type').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+
+				//alert('success on click event of GetRecordFields()');			
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+
+	}
+
+	function GetPaymentStatusList() {
+		//alert('testing on click event of GetRecordFields()');
+
+		$.ajax({
+			url : '/records/PaymentStatusList', // URL of your server-side script
+			type : 'GET',
+
+			success : function(data) {
+				// Update content of element with id 'content'
+
+				$('#payment_status').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+
+				//alert('success on click event of GetRecordFields()');			
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+
+	}
+
+	function GetLabelList() {
+		//alert('testing on click event of GetRecordFields()');
+
+		$.ajax({
+			url : '/records/LabelList', // URL of your server-side script
+			type : 'GET',
+
+			success : function(data) {
+				// Update content of element with id 'content'
+
+				$('#label').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+
+				//alert('success on click event of GetRecordFields()');			
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+
+	}
+
+	function ClearInputFeilds() {
+		//ralert("clearing form")
+		var amount_expense = document.getElementById('amount_expense');
+		var amount_income = document.getElementById('amount_income');
+		var amount_from_account_transfer = document
+				.getElementById('amount_from_account_transfer');
+		var amount_to_account_transfer = document
+				.getElementById('amount_to_account_transfer');
+		var time = document.getElementById('time');
+		var date = document.getElementById('date');
+		var payer = document.getElementById('payer');
+		var note = document.getElementById('note');
+		var place = document.getElementById('place');
+
+		// Clear the values of the input fields
+		amount_expense.value = '';
+		amount_income.value = '';
+		amount_from_account_transfer.value = '';
+		amount_to_account_transfer.value = '';
+		time.value = '';
+		date.value = '';
+		payer.value = '';
+		note.value = '';
+		place.value = '';
+
+	}
+
+	function clearForm() {
+		GetRecordFields();
+		ClearInputFeilds();
+	}
+	
+	
+</script>
+
+ 
+
+
+
+<!-- script for  form toggle -->
+
+<script>
+
+/*
+
+	function showExpense() {
+
+		var transferform = document.getElementById('transfer-form');
+		var incomeform = document.getElementById('income-form');
+		var expenseform = document.getElementById('expense-form');
+
+		var expenseButton = document.getElementById('expenseButton');
+		var incomeButton = document.getElementById('incomeButton');
+		var transferButton = document.getElementById('transferButton');
+
+		expenseform.style.display = 'block';
+		incomeform.style.display = 'none';
+		transferform.style.display = 'none';
+
+		expenseButton.style.color = 'black';
+		expenseButton.style.backgroundColor = 'white';
+
+		incomeButton.style.color = 'white';
+		incomeButton.style.backgroundColor = '#ec407a';
+
+		transferButton.style.color = 'white';
+		transferButton.style.backgroundColor = '#ec407a';
+		clearForm();
+
+	}
+
+	function showIncome() {
+		var transferform = document.getElementById('transfer-form');
+		var incomeform = document.getElementById('income-form');
+		var expenseform = document.getElementById('expense-form');
+
+		var expenseButton = document.getElementById('expenseButton');
+		var incomeButton = document.getElementById('incomeButton');
+		var transferButton = document.getElementById('transferButton');
+
+		expenseform.style.display = 'none';
+		incomeform.style.display = 'block';
+		transferform.style.display = 'none';
+
+		expenseButton.style.color = 'white';
+		expenseButton.style.backgroundColor = '#ec407a';
+
+		incomeButton.style.color = 'black';
+		incomeButton.style.backgroundColor = 'white';
+
+		transferButton.style.color = 'white';
+		transferButton.style.backgroundColor = '#ec407a';
+		clearForm();
+	}
+
+	function showTransfer() {
+		var transferform = document.getElementById('transfer-form');
+		var incomeform = document.getElementById('income-form');
+		var expenseform = document.getElementById('expense-form');
+
+		var expenseButton = document.getElementById('expenseButton');
+		var incomeButton = document.getElementById('incomeButton');
+		var transferButton = document.getElementById('transferButton');
+
+		expenseform.style.display = 'none';
+		incomeform.style.display = 'none';
+		transferform.style.display = 'block';
+
+		expenseButton.style.color = 'white';
+		expenseButton.style.backgroundColor = '#ec407a';
+
+		incomeButton.style.color = 'white';
+		incomeButton.style.backgroundColor = '#ec407a';
+
+		transferButton.style.color = 'black';
+		transferButton.style.backgroundColor = 'white';
+
+		clearForm();
+	}
+	
+	
+	
+	*/	
+</script>
+
+
+
+<!--  script from record card edit section page -->
+
+
+
+<!-- script for  form toggle -->
+
+
+
+<script>
+function showExpenseButtonStyle() {
+	
+	var transferform = document.getElementById('transfer-form');
+	var incomeform = document.getElementById('income-form');
+	var expenseform = document.getElementById('expense-form');
+
+	var expenseButton = document.getElementById('expenseButton');
+	var incomeButton = document.getElementById('incomeButton');
+	var transferButton = document.getElementById('transferButton');
+	
+	
+	expenseform.style.display = 'block';		
+	incomeform.style.display = 'none';
+	transferform.style.display = 'none';
+
+	expenseButton.style.color = 'black';
+	expenseButton.style.backgroundColor = 'white';
+	
+	incomeButton.style.color = 'white';
+	incomeButton.style.backgroundColor = '#ec407a';
+	
+	
+	transferButton.style.color = 'white';
+	transferButton.style.backgroundColor = '#ec407a';
+	
+	
+}
+
+function showIncomeButtonStyle() {
+	var transferform = document.getElementById('transfer-form');
+	var incomeform = document.getElementById('income-form');
+	var expenseform = document.getElementById('expense-form');
+
+	var expenseButton = document.getElementById('expenseButton');
+	var incomeButton = document.getElementById('incomeButton');
+	var transferButton = document.getElementById('transferButton');
+	
+	
+	expenseform.style.display = 'none';
+	incomeform.style.display = 'block';
+	transferform.style.display = 'none';
+	
+	
+	expenseButton.style.color = 'white';
+	expenseButton.style.backgroundColor = '#ec407a';
+	
+	incomeButton.style.color = 'black';
+	incomeButton.style.backgroundColor = 'white';
+	
+	
+	transferButton.style.color = 'white';
+	transferButton.style.backgroundColor = '#ec407a';	
+
+}
+
+function showTransferButtonStyle() {
+	var transferform = document.getElementById('transfer-form');
+	var incomeform = document.getElementById('income-form');
+	var expenseform = document.getElementById('expense-form');
+	
+	var expenseButton = document.getElementById('expenseButton');
+	var incomeButton = document.getElementById('incomeButton');
+	var transferButton = document.getElementById('transferButton');
+	
+	
+	
+	expenseform.style.display = 'none';
+	incomeform.style.display = 'none';
+	transferform.style.display = 'block';
+	
+	
+	
+	expenseButton.style.color = 'white';
+	expenseButton.style.backgroundColor = '#ec407a';
+	
+	incomeButton.style.color = 'white';
+	incomeButton.style.backgroundColor = '#ec407a';
+	
+	
+	transferButton.style.color = 'black';
+	transferButton.style.backgroundColor = 'white';
+	
+	
+
+}
+
+
+
+
+
+
+
+
+	function showExpense() {
+		
+		var transferform = document.getElementById('transfer-form');
+		var incomeform = document.getElementById('income-form');
+		var expenseform = document.getElementById('expense-form');
+
+		var expenseButton = document.getElementById('expenseButton');
+		var incomeButton = document.getElementById('incomeButton');
+		var transferButton = document.getElementById('transferButton');
+		
+		
+		expenseform.style.display = 'block';		
+		incomeform.style.display = 'none';
+		transferform.style.display = 'none';
+
+		expenseButton.style.color = 'black';
+		expenseButton.style.backgroundColor = 'white';
+		
+		incomeButton.style.color = 'white';
+		incomeButton.style.backgroundColor = '#ec407a';
+		
+		
+		transferButton.style.color = 'white';
+		transferButton.style.backgroundColor = '#ec407a';
+		
+		//*****   on click of button clearing previous data in two form
+		SetAmountForIncome();
+		SetAmountForTransfer();
+		
+		GetAccountListForIncome();
+    	GetAccountListForTransfer();
+    	
+    	GetCurrencyListForIncome();
+    	GetCurrencyListForTransfer();
+		
+		
+	}
+
+	function showIncome() {
+		var transferform = document.getElementById('transfer-form');
+		var incomeform = document.getElementById('income-form');
+		var expenseform = document.getElementById('expense-form');
+
+		var expenseButton = document.getElementById('expenseButton');
+		var incomeButton = document.getElementById('incomeButton');
+		var transferButton = document.getElementById('transferButton');
+		
+		
+		expenseform.style.display = 'none';
+		incomeform.style.display = 'block';
+		transferform.style.display = 'none';
+		
+		
+		expenseButton.style.color = 'white';
+		expenseButton.style.backgroundColor = '#ec407a';
+		
+		incomeButton.style.color = 'black';
+		incomeButton.style.backgroundColor = 'white';
+		
+		
+		transferButton.style.color = 'white';
+		transferButton.style.backgroundColor = '#ec407a';
+		
+		
+		
+		//*****   on click of button clearing previous data in two form
+		SetAmountForExpense();
+		SetAmountForTransfer();
+		
+		
+		GetAccountListForExpense();
+    	GetAccountListForTransfer();
+    	
+    	GetCurrencyListForExpense();
+    	GetCurrencyListForTransfer();
+		
+	}
+
+	function showTransfer() {
+		var transferform = document.getElementById('transfer-form');
+		var incomeform = document.getElementById('income-form');
+		var expenseform = document.getElementById('expense-form');
+		
+		var expenseButton = document.getElementById('expenseButton');
+		var incomeButton = document.getElementById('incomeButton');
+		var transferButton = document.getElementById('transferButton');
+		
+		
+		
+		expenseform.style.display = 'none';
+		incomeform.style.display = 'none';
+		transferform.style.display = 'block';
+		
+		
+		
+		expenseButton.style.color = 'white';
+		expenseButton.style.backgroundColor = '#ec407a';
+		
+		incomeButton.style.color = 'white';
+		incomeButton.style.backgroundColor = '#ec407a';
+		
+		
+		transferButton.style.color = 'black';
+		transferButton.style.backgroundColor = 'white';
+		
+		
+		//*****   on click of button clearing previous data in two form
+		SetAmountForExpense();
+		SetAmountForIncome();
+		
+		GetAccountListForExpense();
+    	GetAccountListForIncome();
+    	
+    	GetCurrencyListForExpense();
+    	GetCurrencyListForIncome();
+		
+
+	}
+	
+	
+	function testInputClear() {
+		document.getElementById('payer').value='';
+		document.getElementById('note').value='';
+		
+	}
+	
+</script>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- Call the JavaScript function passing the Java string value -->
+   
+
+   
+    <script>
+  
+    
+ 	function SetAmountForExpense() {
+    	
+    	document.getElementById('amount_expense').value='';
+    	//document.getElementById('amount_income').value='';
+	}
+    
+    
+    function SetAmountForIncome()
+    {
+    	document.getElementById('amount_income').value='';
+    	//document.getElementById('amount_from_account_transfer').value='';
+    	//document.getElementById('amount_to_account_transfer').value='';
+    }
+    
+    function SetAmountForTransfer()
+    {
+    	//document.getElementById('amount_expense').value='';
+    	document.getElementById('amount_from_account_transfer').value='';
+    	document.getElementById('amount_to_account_transfer').value='';
+    }
+    
+   
+    
+    
+    
+    
+    function handleExpenseSection()
+    {
+    	showExpenseButtonStyle();
+    	
+    	SetAmountForIncome();
+    	SetAmountForTransfer();
+    	
+    	GetAccountListForIncome();
+    	GetAccountListForTransfer();
+    	
+    	GetCurrencyListForIncome();
+    	GetCurrencyListForTransfer();
+    	
+    	
+    	
+    	
+    }
+    
+    
+    function handleIncomeSection()
+    {
+    	showIncomeButtonStyle();
+    	
+    	SetAmountForExpense();
+    	SetAmountForTransfer();
+    	
+    	GetAccountListForExpense();
+    	GetAccountListForTransfer();
+    	
+    	GetCurrencyListForExpense();
+    	GetCurrencyListForTransfer();
+    	
+    }
+    
+    function handleTransferSection()
+    {
+    	showTransferButtonStyle();
+    	
+    	SetAmountForExpense();
+    	SetAmountForIncome();
+    	
+    	GetAccountListForExpense();
+    	GetAccountListForIncome();
+    	
+    	GetCurrencyListForExpense();
+    	GetCurrencyListForIncome();
+    }
+    
+    
+    
+    
+    function handleRecordType(recordTypeId)
+    {
+    	
+    	
+    	//alert("handleRecordType " +recordTypeId);
+    	
+    	
+    	
+    	if(recordTypeId == 1)
+    		{
+    		//alert("handleRecordType called")
+    			handleExpenseSection();
+    		}
+    	
+    	else if(recordTypeId == 2)
+		{
+			handleIncomeSection();
+		}
+    	
+    	else if(recordTypeId == 3)
+		{
+    		//alert("transfer section called ");
+			handleTransferSection();
+		}
+    }
+    
+   
+    //*********** servlets calls   **********************
+        
+    
+    function GetAccountListForIncome()
+	{
+		
+		
+		$.ajax({
+			url : '/records/AccountList', // URL of your server-side script
+			type : 'GET',
+			
+			success : function(data) {
+				// Update content of element with id 'content'
+				
+				
+				//$('#Account_type_expense').html(data);
+				$('#Account_type_income').html(data);
+				//$('#account_type_from_account_transfer').html(data);
+				//$('#account_type_to_account_transfer').html(data);
+				
+				
+					
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+		
+	}
+    
+    function GetAccountListForTransfer()
+	{
+		
+		
+		$.ajax({
+			url : '/records/AccountList', // URL of your server-side script
+			type : 'GET',
+			
+			success : function(data) {
+				// Update content of element with id 'content'
+				
+				
+				//$('#Account_type_expense').html(data);
+				//$('#Account_type_income').html(data);
+				$('#account_type_from_account_transfer').html(data);
+				$('#account_type_to_account_transfer').html(data);
+				
+				
+						
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+		
+	}
+    
+    function GetAccountListForExpense()
+	{
+		
+		
+		$.ajax({
+			url : '/records/AccountList', // URL of your server-side script
+			type : 'GET',
+			
+			success : function(data) {
+				// Update content of element with id 'content'
+				
+				
+				$('#Account_type_expense').html(data);
+				//$('#Account_type_income').html(data);
+				//$('#account_type_from_account_transfer').html(data);
+				//$('#account_type_to_account_transfer').html(data);
+				
+				
+					
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+		
+	}
+    
+    
+    
+	function GetCurrencyListForIncome() {
+		
+		
+		$.ajax({
+			url : '/records/CurrencyList', // URL of your server-side script
+			type : 'GET',
+			
+			success : function(data) {
+				// Update content of element with id 'content'
+				
+			
+				//$('#currency_expense').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+				$('#currency_income').html(data);
+				//$('#currency_from_account_transfer').html(data);
+				//$('#currency_to_account_transfer').html(data);
+				
+				
+						
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+		
+	}
+	
+	
+	function GetCurrencyListForExpense() {
+		
+		
+		$.ajax({
+			url : '/records/CurrencyList', // URL of your server-side script
+			type : 'GET',
+			
+			success : function(data) {
+				// Update content of element with id 'content'
+				
+			
+				$('#currency_expense').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+				//$('#currency_income').html(data);
+				//$('#currency_from_account_transfer').html(data);
+				//$('#currency_to_account_transfer').html(data);
+				
+				
+						
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+		
+	}
+	
+	
+	
+	function GetCurrencyListForTransfer() {
+		
+		
+		$.ajax({
+			url : '/records/CurrencyList', // URL of your server-side script
+			type : 'GET',
+			
+			success : function(data) {
+				// Update content of element with id 'content'
+				
+			
+				//$('#currency_expense').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+				//$('#currency_income').html(data);
+				$('#currency_from_account_transfer').html(data);
+				$('#currency_to_account_transfer').html(data);
+				
+				
+					
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+		
+	}
+
+    
+	</script>
+		<script>
+		//getting record id from model attribute directly into javascript
+		var recordTypeId= [[${recordTypeId}]];
+		//alert("recordTypeId is "+recordTypeId);
+		
+		handleRecordType(recordTypeId);
+		</script>
+
+
+
+</html>

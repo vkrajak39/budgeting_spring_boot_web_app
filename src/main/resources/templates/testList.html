@@ -1,0 +1,6 @@
+ <!--  <select class="form-control" name="testList" id="testList" required>  -->
+			<option value="0">--Select a value--</option>
+				<option th:each="val : ${categoryList}" th:text="${val.categoryName}" th:value="${val.categoryId}">--Select --</option>
+		  		
+	
+	<!-- </select>  -->

@@ -1,0 +1,134 @@
+/* header.css */
+
+/* css color constants for modal */
+:root {
+  --pink-color: #ec407a;
+  --grey-color: #eff0f2;
+  --green-color: #00aa70;
+}
+
+.form-control-dark {
+  border-color: var(--bs-gray);
+}
+.form-control-dark:focus {
+  border-color: #fff;
+  box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
+}
+
+.text-small {
+  font-size: 85%;
+}
+
+.dropdown-toggle:not(:focus) {
+  outline: 0;
+}
+
+/* Modal css section */
+#transferButton {
+	border: 0px !important;
+	margin: 0px !important;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 5px;
+	color: white;
+	background-color: var(--pink-color);
+}
+
+#incomeButton {
+	border: 0px !important;
+	margin: 0px !important;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 5px;
+	color: white;
+	background-color: var(--pink-color);
+}
+
+#expenseButton {
+	border: 0px !important;
+	margin: 0px !important;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 5px;
+}
+
+.button-column {
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+
+.input-group-append {
+	cursor: pointer;
+}
+
+.upper-form {
+	background-color: var(--pink-color);
+}
+
+.modal-form-submit-button {
+	color: white !important;
+	background-color: var(--green-color) !important;
+	border-radius: 25px !important;
+	width: 40%;
+}
+
+record-delete-button
+{
+	color: white !important;
+	background-color: red !important;
+	border-radius: 25px !important;
+	width: 40%;
+}
+
+
+.bottom-form-container {
+	background-color: white;
+	padding: 18px;
+}
+
+.top-form-container {
+	padding: 18px;
+}
+
+.right-form-container {
+	background-color: var(--grey-color);
+	padding: 18px;
+}
+
+.top-form-container-label {
+	color: white;
+}
+
+/* sideBar.css */
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+main {
+  height: 100vh;
+  height: -webkit-fill-available;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: auto; /* Changed from hidden to auto */
+}
+
+.dropdown-toggle { outline: 0; }
+
+.scrollarea {
+  overflow-y: auto;
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.2); /* Adjust the opacity and color as needed */
+}
+
+
+
+
+

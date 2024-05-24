@@ -1,0 +1,417 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body >
+	
+
+
+
+
+
+
+
+<div class="container-fluid" th:fragment="recordCardFragment">
+
+	<div class="row  ">
+		<div class="col-md-8">
+			<div class="upper-form">
+
+
+				<!-- top form section here -->
+
+
+				<div class="row  text-center" >
+
+					<div class="col  text-center button-column">
+						<button type="button" class="" onclick="return showExpense()" id="expenseButton">Expense</button>
+					
+						<button type="button" onclick="return showIncome()" id="incomeButton">Income</button>
+				
+						<button type="button" onclick="return showTransfer()"id="transferButton">Transfer</button>
+					</div>
+				</div>
+				<!-- top form goes here -->
+
+
+				<!-- top form Expense section -->
+				<div class="row-col">
+
+					<div class="form-begins top-form-container" id="expense-form" style="display: block;">
+						
+					<div class="mb-4">
+						<label class="form-label top-form-container-label" for="form6Example7">Account</label>
+
+						<div class="form-outline">
+							<select class="form-control" name="Account_type_expense" id="Account_type_expense" required>
+								<option value="0">-- Select an account type --</option>
+								
+		
+								
+								
+							</select>
+							<div id="paymentTypeError" style="display: none; color: red;">Please
+								select a city.</div>
+						</div>
+						</div>
+
+						<!-- 2 column grid layout with text inputs  -->
+
+						<div class="row mb-4">
+							<div class="col">
+								<div data-mdb-input-init class="form-outline">
+									<label class="form-label top-form-container-label" for="form6Example1">Amount</label> <input
+										type="text" id="form6Example1" class="form-control" name="amount_expense" />
+								</div>
+							</div>
+							<div class="col">
+								<label class="form-label top-form-container-label" for="form6Example7">Currency</label>
+
+								<div class="form-outline">
+									<select class="form-control" name="currency_expense" id="currency_expense" required>
+										
+
+									</select>
+									<div id="paymentTypeError" style="display: none; color: red;">Please
+										select a city.</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+					</div>
+
+					<!-- top form income section -->
+
+					<div class="form-begins top-form-container" id="income-form" style="display: none;">
+						
+
+						<div class="mb-4">
+						<label class="form-label top-form-container-label" for="form6Example7">Account</label>
+
+						<div class="form-outline">
+							<select class="form-control" name="Account_type_income" id="Account_type_income" required>
+								
+				
+
+							</select>
+							<div id="paymentTypeError" style="display: none; color: red;">Please
+								select a city.</div>
+						</div>
+						</div>
+						<!-- 2 column grid layout with text inputs for the first and last names -->
+
+						<div class="row mb-4">
+							<div class="col">
+								<div data-mdb-input-init class="form-outline">
+									<label class="form-label top-form-container-label" for="form6Example1">Amount</label> <input
+										type="text" id="form6Example1" class="form-control" name="amount_income" />
+								</div>
+							</div>
+							<div class="col">
+								<label class="form-label top-form-container-label" for="form6Example7">Currency</label>
+
+								<div class="form-outline">
+									<select class="form-control" name="currency_income" id="currency_income" required>
+										
+
+									</select>
+									<div id="paymentTypeError" style="display: none; color: red;">Please
+										select a city.</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- top form transfer section -->
+
+					<div class="form-begins top-form-container" id="transfer-form" style="display: none;">
+
+						
+						<div class="row">
+						
+							<!-- top form transfer left section -->
+							<div class="col-md-6   transfer-form-left-column">
+
+								<!-- for  for account -->
+								<div class="mb-4">
+								<label class="form-label top-form-container-label" for="form6Example7">From account</label>
+
+								<div class="form-outline">
+									<select class="form-control" name="account_type_from_account_transfer" id="account_type_from_account_transfer" required>
+										<option value="0">--cash 1--</option>
+										<option value="0">--cash 2--</option>
+										<option value="0">--cash 3--</option>
+
+										
+
+									</select>
+									<div id="paymentTypeError" style="display: none; color: red;">Please
+										select a city.</div>
+								</div>
+								</div>
+
+								<!-- 2 column grid layout with text inputs for the first and last names -->
+
+								<div class="row mb-4">
+									<div class="col">
+										<div data-mdb-input-init class="form-outline">
+											<label class="form-label top-form-container-label" for="form6Example1">Amount</label>
+											<input type="text" id="amount_from_account_transfer" class="form-control" name="amount_from_account_transfer" />
+										</div>
+									</div>
+									<div class="col">
+										<label class="form-label top-form-container-label" for="form6Example7">Currency</label>
+
+										<div class="form-outline">
+											<select class="form-control" name="currency_from_account_transfer" id="currency_from_account_transfer"
+												required>
+												
+
+											</select>
+											<div id="paymentTypeError" style="display: none; color: red;">Please
+												select a city.</div>
+										</div>
+									</div>
+								</div>
+
+
+
+							</div>
+							
+						
+
+							<div class="col-md-6  transfer-form-right-column">
+
+								<!-- for  to account -->
+								<div class="mb-4">
+								<label class="form-label top-form-container-label" for="form6Example7">To account</label>
+
+								<div class="form-outline">
+									<select class="form-control" name="account_type_to_account_transfer" id="account_type_to_account_transfer" required>
+										<option value="0">--cash 1--</option>
+										<option value="0">--cash 2--</option>
+										<option value="0">--cash 3--</option>
+
+										<option value=""></option>
+
+									</select>
+									<div id="paymentTypeError" style="display: none; color: red;">Please
+										select a city.</div>
+								</div>
+								
+								</div>
+
+								<!-- 2 column grid layout with text inputs for the first and last names -->
+
+								<div class="row  mb-4">
+									<div class="col">
+										<div data-mdb-input-init class="form-outline">
+											<label class="form-label top-form-container-label" for="form6Example1">Amount</label>
+											<input type="text" id="amount_to_account_transfer" class="form-control" name="amount_to_account_transfer" />
+										</div>
+									</div>
+									<div class="col">
+										<label class="form-label top-form-container-label" for="form6Example7">Currency</label>
+
+										<div class="form-outline">
+											<select class="form-control" name="currency_to_account_transfer" id="currency_to_account_transfer"
+												required>
+												
+
+											</select>
+											<div id="paymentTypeError" style="display: none; color: red;">Please
+												select a city.</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="">
+
+				<!-- bottom form goes here -->
+
+				<div class="form-begins bottom-form-container" >
+					<!-- 2 column grid layout with text inputs for the first and last names -->
+					<div class="row mb-4">
+						<div class="col">
+							<div data-mdb-input-init class="form-outline mb-4">
+								<label class="form-label" for="form6Example7">Category</label>
+
+								<div class="form-outline">
+									<select class="form-control" required name="category"
+										id="category"  >
+									
+										<option value="0" th:each="category : ${categoryList}"  th:text="${category.categoryName}">test</option>
+										
+
+									</select>
+									<div id="paymentTypeError" style="display: none; color: red;">Please
+										select a city.</div>
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<div data-mdb-input-init class="form-outline mb-4">
+								<label class="form-label" for="form6Example7">Label</label>
+
+								<div class="form-outline">
+									<select class="form-control" name="label" id="label" required>
+										<option value="0">--Select a city 1--</option>
+										<option value="0">--Select a city 2--</option>
+										<option value="0">--Select a city 3--</option>
+
+										<option value=""></option>
+
+									</select>
+									<div id="paymentTypeError" style="display: none; color: red;">Please
+										select a city.</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<div class="row mb-4">
+						<div class="col">
+							<label>Select Date: </label>
+						<!-- 	<jsp:include page="datePickerV2.jsp"></jsp:include> -->
+						<!-- date picker -->
+								<input type="text" name="datepicker" id="datepicker" style="display: inline; width: 90%">
+		  						<i class="fa fa-calendar " id="datepicker-icon"></i>
+						</div>
+						<div class="col">
+							<label>Select time: </label>
+							<div class="input-group date" id="timePicker_Edit">
+			                    <input type="text" class="form-control timePicker" name="time_Edit" id="time_Edit" required>
+			                    <span class="input-group-addon ps-1 pt-1" ><i class="fa fa-clock-o" aria-hidden="true" ></i></span>
+			                </div>
+
+						</div>
+					</div>
+
+
+
+				</div>
+				
+				<!-- map section -->
+				<!-- div for map -->
+				<div data-mdb-input-init class="form-outline mb-4" id="map"></div>
+
+
+			</div>
+		</div>
+		<div class="col-md-4">
+			<!-- form for right side -->
+
+			<div class="form-begins right-form-container" >
+				<!-- 2 column grid layout with text inputs for the first and last names -->
+
+
+				<!-- Text input -->
+				<div data-mdb-input-init class="form-outline mb-4">
+					<label class="form-label" for="form6Example3"> Payer</label>
+					<input type="text" id="payer" class="form-control" name="payer" />
+					
+				</div>
+
+				<!-- Message input -->
+				<div data-mdb-input-init class="form-outline mb-4">
+					<label class="form-label" for="form6Example7">Note</label>
+					<textarea class="form-control" id="note" rows="2" name="note"></textarea>
+					
+				</div>
+
+				<!-- Text input -->
+				<div data-mdb-input-init class="form-outline mb-4">
+					<label class="form-label" for="form6Example7">Payment Type</label>
+
+					<div class="form-outline">
+						<select class="form-control" name="payment_type" id="payment_type"
+							required>
+							<option value="0">--Select a city 1--</option>
+							<option value="0">--Select a city 2--</option>
+							<option value="0">--Select a city 3--</option>
+
+							<option value=""></option>
+
+						</select>
+						<div id="paymentTypeError" style="display: none; color: red;">Please
+							select a city.</div>
+					</div>
+				</div>
+
+
+
+				<!-- Text input -->
+				<div data-mdb-input-init class="form-outline mb-4">
+					<label class="form-label" for="form6Example7">Payment
+						Status</label>
+
+					<div class="form-outline">
+						<select class="form-control" name="payment_status"
+							id="payment_status" required>
+							<option value="0">--Select a city 1--</option>
+							<option value="0">--Select a city 2--</option>
+							<option value="0">--Select a city 3--</option>
+
+							<option value=""></option>
+
+						</select>
+						<div id="paymentStatusError" style="display: none; color: red;">Please
+							select a city.</div>
+					</div>
+				</div>
+
+
+
+				<div data-mdb-input-init class="form-outline mb-4">
+				<label class="form-label" for="form6Example3"> Place</label>
+					<input type="text" id="place" class="form-control" name="place" onchange="searchCity()"/>
+					
+				</div>
+				
+				
+
+			</div>
+
+		</div>
+	</div>
+
+
+</div>
+
+
+
+</body>
+</html>
+
+

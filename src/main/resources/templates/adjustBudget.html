@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link href="css/header.css" rel="stylesheet">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+			integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+		<link href="css/header.css" rel="stylesheet">
+	
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+	<!-- Chart links dashboard -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js" type="text/javascript"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+	<style>
+		body {
+			background-color: #EFF0F2;
+		}
+	</style>
+	<style>
+		.card {
+			margin: 10px;
+			display: inline-block;
+			height: 50vh;
+			width: 45%;
+			border: 1px solid rgba(0, 0, 0, 0.125);
+			border-radius: 3px;
+			padding-bottom: 66px;
+			overflow: hidden;
+		}
+
+		.canvasjs-chart-toolbar {
+			display: none !important;
+		}
+
+		.canvasjs-chart-canvas {
+			height: 300px !important;
+			width: 400px !important;
+			position: relative;
+			left: 20%;
+		}
+		.budget-table-header {
+			background-color: #156082;
+			color: white
+		}
+		.budget-table-body {
+			background-color: #CCD2D8;
+		}
+	</style>
+
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div class="w-100 d-flex justify-content-center align-items-center">		
+		<div th:include="BudgetTable :: BudgetTable(budgetArray=${budgetArray})" class="w-100 d-flex justify-content-center align-items-center"></div>
+	</div>
+	<div class="w-100 d-flex justify-content-center mt-5 ">		
+		<button class="btn btn-primary"onclick="saveChanges()">Save</button>
+	</div>
+
+	<script>
+	    function saveChanges() {
+	        // Iterate over the table rows and get the updated values
+	        var rows = document.querySelectorAll(".budget-table-body tr");
+	        rows.forEach(function(row) {
+	            var budgetId = row.id.split("-")[1]; // Extracting the budgetId from the id attribute
+	            var newAmount = row.querySelector(".budgetAmount").innerText; // Adjusted to match the class from the previous code
+	            
+	            // Make API call to update the budget amount
+	            fetch("/updateBudget?budgetId=" + budgetId + "&newAmount=" + newAmount, {
+	                method: "POST"
+	            })
+	            .then(response => {
+					console.log(response)
+	                if (response.ok) {
+	                    console.log("Budget updated successfully");
+						window.location.href = "/AdjustBudget"
+	                    
+	                } else {
+	                    console.error("Failed to update budget");
+	                }
+	            })
+	            .catch(error => {
+	                console.error("Error:", error);
+	            });
+	        });
+	    }
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<div class="container-fluid">
+	<div class="row">
+		<div
+			class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+			<div class="flex-shrink-0 p-3" style="width: 280px;">
+				<a href="/"
+					class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+					<svg class="bi pe-none me-2" width="30" height="24">
+                        <use xlink:href="#bootstrap" />
+                    </svg> <span class="fs-5 fw-semibold">Analytics</span>
+				</a>
+				<ul class="list-unstyled ps-0">
+					<li class="mb-1">
+						<button
+							class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+							aria-expanded="false">Accounts</button>
+						<div>
+							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+								<li><input type="checkbox" id="selectAll" class="checkbox-account1"
+									onchange="toggleAll()"> <label for="selectAll"
+									class="link-body-emphasis d-inline-flex text-decoration-none rounded sidebar-option checkbox-account"><span th:text="'All'"></span></label>
+								</li>
+								<th:block th:each="account : ${ACCOUNTLIST}">
+									<li><input type="checkbox" class="checkbox-account checkbox-account1"
+										onchange="toggleSingle(this)"
+										data-account-id="${account.getId()}"
+										th:id="${account.getId()}"> <label
+										class="link-body-emphasis d-inline-flex text-decoration-none rounded sidebar-option">
+											<span th:text="${account.getName()}"></span>
+									</label></li>
+								</th:block>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"
+			id="sidebarContent"></main>
+	</div>
+</div>
+
+<script th:inline="javascript">
+	function toggleAll() {
+		var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		var selectAllCheckbox = document.getElementById('selectAll');
+		checkboxes.forEach(function(checkbox) {
+			checkbox.checked = selectAllCheckbox.checked;
+		});
+	}
+
+	function toggleSingle(checkbox) {
+		var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		var selectAllCheckbox = document.getElementById('selectAll');
+		var allSelected = true;
+		checkboxes.forEach(function(cb) {
+			if (cb !== selectAllCheckbox && !cb.checked) {
+				allSelected = false;
+			}
+		});
+		selectAllCheckbox.checked = allSelected;
+	}
+</script>
+
+<script th:inline="javascript">
+	function handleCheckboxChange() {
+		// Reset styles for all checkboxes
+		$('.checkbox-account1').next('label').css({
+			'font-weight' : 'normal',
+			'color' : 'black'
+		});
+
+		// Apply styles for checked checkboxes
+		$('.checkbox-account1:checked').next('label').css({
+			'font-weight' : 'bold'
+		});
+
+		// Get the reportLink
+		var reportLink = $('.dynamicElement').attr('id');
+
+		// Get the list of checked checkboxes' ids
+		var checkedIdsString = '';
+		var checkedIdsString = '';
+		$('.checkbox-account:checked').each(function() {
+		    checkedIdsString += $(this).attr('id') + ','; // Retrieve the id attribute
+		});
+		// Remove the trailing comma
+		checkedIdsString = checkedIdsString.slice(0, -1);
+
+		console.log("Hello " + checkedIdsString);
+
+		// Make the AJAX call with the list of checked ids
+		$.ajax({
+			url : "/loadSidebar", // URL of your server-side script
+			type : 'GET',
+			data : {
+				accountId : checkedIdsString, // Pass the comma-separated string of checked ids to the server-side script
+				reportLink : reportLink
+			// Pass the reportLink to the server-side script
+			},
+			success : function(data) {
+				// Update content of element with id 'sidebarContent'
+				$('#sidebarContent').html(data);
+			},
+			error : function(xhr, status, error) {
+				// Log errors to console
+				console.error(status, error);
+			}
+		});
+	}
+
+	$(document).ready(function() {
+		// Check the "All" checkbox when the document is ready
+		$('#selectAll').prop('checked', true);
+		// Check all other checkboxes when "All" checkbox is checked
+		$('input[type="checkbox"]').not('#selectAll').prop('checked', true);
+
+		// Call handleCheckboxChange function initially
+		handleCheckboxChange();
+	});
+
+	// Call handleCheckboxChange function whenever a checkbox state changes
+	$('input[type="checkbox"]').on('change', handleCheckboxChange);
+</script>
+</html>

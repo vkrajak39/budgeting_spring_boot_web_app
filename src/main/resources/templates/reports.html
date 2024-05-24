@@ -1,0 +1,69 @@
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
+
+<div id="accountId" th:text="${ACCOUNTID}"
+	style="position: absolute; left: -9999px;"></div>
+
+<div
+	class="d-flex justify-content-start align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h6 class="h6 me-3">SHOW</h6>
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button"
+			id="dropdownMenuButton" data-bs-toggle="dropdown"
+			aria-expanded="false" style="background-color: #dc143c;">
+			<span id="selectedReport">Select Report</span>
+		</button>
+
+		<ul class="dropdown-menu dropdown-menu-end"
+			aria-labelledby="dropdownMenuButton">
+			<li th:each="reports : ${REPORTLIST}" style="margin-bottom: 10px;">
+				<a href="#" class="nav-link px-2 link-secondary report-option"
+				th:id="${reports.getReportLink()}"
+				th:text="${reports.getReportName()}"
+				style="white-space: nowrap; padding: 8px 12px !important; border-radius: 5px !important; background-color: #007bff !important; color: #fff !important; text-decoration: none !important; transition: background-color 0.3s !important;">
+			</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div id="reportContent" style="padding: 10px; box-sizing: border-box;"
+	th:attr="data-report-link=${REPORTLINK}"></div>
+
+<script>
+	$(document).ready(function() {
+		var reportLink = $('#reportContent').data('report-link');
+
+		$('.report-option[id="' + reportLink + '"]').click();
+	});
+
+	$('.report-option').on('click', function(event) {
+		event.preventDefault();
+		var reportLink = $(this).attr('id');
+		var accountId = document.getElementById('accountId').innerText;
+		var reportName = $(this).text();
+		$('#selectedReport').text(reportName);
+
+		$.ajax({
+			url : '/loadReports/',
+			type : 'GET',
+			data : {
+				reportLink : reportLink,
+				accountId : accountId
+			},
+			success : function(data) {
+				$('#reportContent').html(data);
+			},
+			error : function(xhr, status, error) {
+				console.error(status, error);
+			}
+		});
+	});
+</script>
+
+
+
+
+

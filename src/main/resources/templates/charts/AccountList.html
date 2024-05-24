@@ -1,0 +1,66 @@
+<style>
+	
+	
+
+	.listing {
+		width: 550px;
+		height: 200px;
+	}
+
+	.list {
+		overflow-y: scroll !important;
+	}
+</style>
+<div class="card list">
+	<div class="card-body">
+		<h3 style="text-align: center;">Accounts</h3>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-1 col-xs-12 content">
+					<div class="col-md-9">
+						<div th:each="account : ${session.ACCOUNT}">
+							<div class="row mb-6">
+								<div class="col-md-12">
+									<div class="h-75 p-4 text-bg-warning rounded-5 listing"
+										th:classappend="${session.ACCOUNTDASHBOARD != account.id and session.ACCOUNTDASHBOARD != 0 ? 'bg-white text-black' : ''}"
+										onclick="AccountDashboard(this)" th:id="${account.id}"
+										style="margin-top: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif; font-size: 14px; position: relative; cursor: pointer;">
+										<div style="display: flex; align-items: center;">
+											<h3 style="font-size: 28px; margin: 0; color: black;"
+												th:each="accountType : ${accounttypes}"
+												th:if="${accountType.id == account.accountTypeId}"
+												th:text="${accountType.accountName}"></h3>
+											<h3 style="font-size: 28px; margin: 0; margin-left: 10px;">-</h3>
+											<span style="color: green; font-size: 28px; margin-left: 10px;"
+												th:text="${account.name}"></span>
+										</div>
+
+										<h5 style="font-size: 16px; color: white;">
+											&#8377; <span style="color: white;" th:text="${account.amount}">
+											</span>0
+										</h5>
+
+										<button type="button" class="btn btn-success rounded-pill"
+											th:attr="onclick=|openEditModal('${account.id}','${account.userId}','${account.name}','${account.amount}','${account.accountTypeId}','${account.currencyId}')|"
+											style="position: absolute; bottom: 33px; right: 20px;">
+											<i class="fa-solid fa-pen-to-square"></i>
+										</button>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- /row -->
+		</div>
+	</div>
+</div>
+<script>
+	function AccountDashboard(element) {
+		var accountId = element.id;
+		window.location.href = 'DashboardAccount?id=' + accountId;
+	}
+</script>

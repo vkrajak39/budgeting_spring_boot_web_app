@@ -1,0 +1,50 @@
+<div id="chartContainer" style="height: 400px;"></div>
+<div class="dynamicElement" id="LoadExpense"></div>
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	var expenseData = /*[(${expenseData})]*/[];
+	/*]]>*/
+
+	var chart = new CanvasJS.Chart("chartContainer", {
+		animationEnabled : true,
+		theme : "light2",
+		title : {
+			text : "Cash Flow",
+			fontFamily : "Lobster",
+			fontSize : 32,
+			fontWeight : "bold",
+			fontColor : "#007bff"
+		},
+		axisX : {
+			title : "Date",
+			titleFontSize : 16,
+			labelFontSize : 12
+		},
+		axisY : {
+			title : "Amount",
+			titleFontSize : 16,
+			labelFontSize : 12,
+			includeZero : false,
+			minimum : -1000
+		// Set minimum value here
+		},
+		toolTip : {
+			enabled : true,
+			contentFormatter : function(e) {
+				return "<strong>" + e.entries[0].dataPoint.label
+						+ "</strong><br/>&#8377;" + e.entries[0].dataPoint.y;
+			}
+		},
+		data : [ {
+			type : "line",
+			color : "red",
+			lineThickness : 3,
+			markerSize : 8,
+			showInLegend : true,
+			legendText : "Expense",
+			dataPoints : expenseData
+		} ]
+	});
+	chart.render();
+</script>

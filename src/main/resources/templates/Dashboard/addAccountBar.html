@@ -1,0 +1,134 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light pt-8 align-middle" style="height: 95px; padding-left: 20px">
+	<div id="accounts" style="text-align: left">
+		<th:block th:each="account, iterStat : ${session.ACCOUNT}">
+			<div th:if="${iterStat.index &lt; 4}" class="accountButton"
+			th:classappend="${session.ACCOUNTDASHBOARD != account.id and session.ACCOUNTDASHBOARD != 0 ? 'opacity' : ''}"
+				th:id="${account.id}" th:onclick="'DashboardOfAccount(' + ${account.id} + ')'" style="cursor: pointer;">
+				<h5 th:text="${account.name}"></h5>
+				<h5>&#8377; <span th:text="${@numberUtils.formatDecimal(account.amount, '#,##,###,###.00')}"></span>
+				</h5>
+			</div>
+		</th:block>
+	</div>
+	<button type="button" class="btn btn-link">
+		<a th:attr="onclick=|openAddModal('${session.USER.userid}')|">Add Account</a>
+	</button>
+	<button type="button" class="btn btn-link ${(session.getAttribute('ACCOUNTDASHBOARD') ne 0) ? '' : 'select'}">
+		<a th:href="@{/Dashboard}">Select All Accounts</a>
+	</button>
+</nav>
+
+<!--Add Modal-->
+<div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="addAccountModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="addAccountModalLabel">Add
+					Account</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="addAccountForm" action="/addFirstAccount" method="post">
+					<input type="hidden" id="userId" name="userId">
+					<div class="modal-body p-5 pt-0 mt-5">
+						<!-- User input -->
+						<div class="form-floating mb-5">
+							<input type="text" class="form-control rounded-3" id="accountName" name="accountName"
+								placeholder="Account Name" required> <label for="accountName">Account Name</label>
+						</div>
+						<!-- Account Type -->
+						<div class="form-floating mb-3">
+							<div class="btn-group col-12">
+								<select class="btn btn-success dropdown-toggle mb-4 w-100" id="accountType"
+									name="accountType" required style="height: 50px;">
+									<option value="0">Account Type</option>
+									<option th:each="accounttype : ${accounttypes}" th:value="${accounttype.id}"
+										th:text="${accounttype.accountName}"></option>
+								</select>
+							</div>
+						</div>
+						<!-- Side-by-Side Starting Amount and Currency -->
+						<div class="row">
+							<!-- Starting Amount -->
+							<div class="col-md-6">
+								<input type="text" class="form-control rounded-3" id="amount" name="amount"
+									placeholder=" Starting Amount" style="height: 50px;" required>
+							</div>
+							<!-- Currency -->
+							<div class="col-md-6">
+								<div class="btn-group w-100">
+									<select class="btn btn-success dropdown-toggle mb-4 w-100" id="currency"
+										name="currency" required style="height: 50px;">
+										<option value="0">Currency</option>
+										<option th:each="currency : ${currency}" th:value="${currency.id}"
+											th:text="${currency.currency_name}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer d-flex justify-content-between">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ADD Modal End -->
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+	integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+	crossorigin="anonymous"></script>
+<script>
+	function openAddModal(userId) {
+		document.getElementById('userId').value = userId;
+		$('#addAccountModal').modal('show');
+	}
+</script>
+
+
+<script type="text/javascript">
+	function DashboardOfAccount(id) {
+		console.log("Hi")
+		var url = "/DashboardAccount?id=" + id;
+		window.location.href = url;
+
+	}
+</script>
+
+<style>
+	nav {
+		margin: 10px 0 10px 0;
+	}
+
+	.select {
+		display: none;
+	}
+
+	.opacity {
+		opacity: 0.5;
+	}
+
+	.accountButton {
+		background-color: #157347;
+		margin: 10px 0px 10px 10px;
+		width: 250px;
+		color: white;
+		border-radius: 10px;
+		padding: 10px;
+		display: inline-block;
+		text-align: center;
+	}
+
+	.accountButton h5 {
+		margin: 0;
+	}
+</style>

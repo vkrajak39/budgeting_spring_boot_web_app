@@ -1,0 +1,51 @@
+
+
+
+
+				<table class="table table-hover table-striped ">
+					<thead>
+						<tr>
+							<th scope="col">Edit Record</th>
+							<th scope="col">Date</th>
+							<th scope="col">Category</th>
+							<th scope="col">Type</th>
+							<th scope="col">Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+
+
+
+ 
+						<tr  th:each="record : ${testReordList}">
+
+							<td>
+								<form action="/records/editRecord" method="get" >
+									
+									<input type="hidden" name="recordId" th:value ="${record.id}" />
+									<button type="submit" style="border: none;"><img src="https://cdn.pixabay.com/photo/2017/06/06/00/33/edit-icon-2375785_1280.png" height='20'>
+									</button> 
+
+								</form>
+							</td>
+							<td  th:text="${record.date}" ></td>
+							<td  th:text="${record.category.categoryName}"  ></td>
+							<td  th:text="${record.recordType.recordTypeName}" ></td>
+							<td  th:text="|${record.amount}0|" ></td>
+
+						</tr>
+
+
+
+
+
+
+
+
+
+					</tbody>
+				</table>
+		
+	
+		
+

@@ -1,0 +1,117 @@
+<div class="card">
+	<div class="card-body">
+		<h2 style="text-align: center;">Balance</h2>
+		<h6 th:text="&#8377;+${@numberUtils.formatDecimal(session.BALANCE,'#,##,###,##0.00')}"
+			style="text-align: center;">
+		</h6>
+
+		<div class="container-fluid">
+			<div class="row">
+
+					<canvas id="lineChart" 	style="height: 310px; width: 100%;margin-left: 25px;"></canvas>
+			</div>
+			<!-- /row -->
+		</div>
+	</div>
+</div>
+
+<script th:inline="javascript">
+	/* Extract the data from the Thymeleaf model */
+	window.onload = function () {
+
+		/*<![CDATA[*/
+
+		var balanceChartData = /*[[${session.BALANCELIST2}]]*/ '{}';
+		var initialAmount = /*[[${session.INITIALAMTUSER}]]*/ '{}';
+
+		var balance = /*[[${session.BALANCE}]]*/ '{}';
+
+		const balanceChartObj = {};
+
+		balanceChartData.forEach(balance => {
+			const [date, amount] = balance;
+			balanceChartObj[date] = amount;
+		});
+		var cumulativeSum = [];
+		var dates = [];
+
+
+		var chartDataArray = Object.entries(balanceChartObj).map(([date, amount]) => {
+			const [dd, mm, yyyy] = date.split('/');
+			dates.push(new Date(`${mm}/${dd}/${yyyy}`));
+			cumulativeSum.push(amount);
+
+			return {x: new Date(`${mm}/${dd}/${yyyy}`), y: amount};
+		});
+
+
+		/* Get the canvas element */
+		var ctx = document.getElementById('lineChart').getContext('2d');
+		console.log(		balanceChartData,		balanceChartObj,dates, cumulativeSum)
+		/* Create the chart */
+		var lineChart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: dates,
+				datasets: [{
+					label: 'Cumulative Amount',
+					data: cumulativeSum,
+					fill: {
+						target: 'origin',
+						above: 'rgba(35,139,69,0.2)',
+						below: 'rgba(196,25,25,0.4)'
+					},
+					borderColor: 'rgb(35,139,69)', // Change the line color here (e.g., blue)
+					pointBorderColor: 'rgb(0,100,0)', // Deep green
+					pointBackgroundColor: 'rgb(0,100,0)', // Deep green
+					tension: 0.3
+				}]
+			},
+			options: {
+				scales: {
+					x: {
+						type: 'time',
+						time: {
+							unit: 'day'
+						},
+						title: {
+							display: true,
+							text: 'Date'
+						}
+					},
+					y: {
+						title: {
+							display: true,
+							text: 'Balance'
+						},
+						ticks: {
+							// Use a callback function to format the Y-axis labels with Rupee symbol
+							callback: function (value, index, values) {
+								return '₹' + value;
+							}
+						}
+					}
+				},
+				plugins: {
+					tooltip: {
+						callbacks: {
+							label: function (context) {
+								var label = context.dataset.label || '';
+								if (label) {
+									label += ': ';
+								}
+								label += '₹' + context.parsed.y;
+								return label;
+							}
+						}
+					}
+				}
+			}
+
+		});
+		/*]]>*/
+
+	}
+</script>
+
+

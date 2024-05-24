@@ -1,0 +1,428 @@
+<!-- date picker  version 2-->
+<script>
+  /* $(function () {
+    $("#datepicker").datepicker({
+      dateFormat: "dd/mm/yy",
+      changeMonth: true,
+      changeYear: true,
+    });
+
+    $("#datepicker-icon").click(function () {
+      alert("datepicker icon clicked");
+      $("#datepicker").datepicker("show");
+    });
+  });
+
+  */
+</script>
+<!-- date picker  version 2 end-->
+
+<!-- loding record fields function -->
+
+<script>
+  /*	function template
+         * 
+         function showStates() {
+    
+         //getting the value selected
+         //var countrySelected= $(this).val();
+         var countrySelected = $("#countryList").val();
+    
+         alert("testing onchange event:: country value is "
+         + countrySelected);
+    
+         $.ajax({
+         url : 'LoadStates', // URL of your server-side script
+         type : 'POST',
+         data : {
+         country : countrySelected
+         },
+         success : function(data) {
+         // Update content of element with id 'content'
+         $('#stateList').html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+         },
+         error : function(xhr, status, error) {
+         // Log errors to console
+         console.error(status, error);
+         }
+         });
+    
+         }
+        
+        
+        
+    
+         $(document).ready(function(){
+         $("#myButton").click(function(){
+         $.ajax({
+         url: "MyServlet",
+         type: "GET",
+         success: function(response){
+         // Redirect to new page
+         window.location.href = "newPage.jsp";
+         },
+         error: function(xhr, status, error){
+         console.log("Error occurred: " + error);
+         }
+         });
+         });
+         });
+        
+        
+        
+        
+        
+         */
+
+  function GetRecordFields() {
+    //alert('main called');
+
+    //  GetCurrencyList();
+    // GetAccountList();
+    GetCategoryList();
+    // GetPaymentStatusList();
+    // GetPaymentTypeList();
+    //  GetLabelList();
+  }
+
+  function GetCurrencyList() {
+    //alert('currency list called');
+
+    $.ajax({
+      url: "CurrencyList", // URL of your server-side script
+      type: "POST",
+
+      success: function (data) {
+        // Update content of element with id 'content'
+
+        $("#currency_expense").html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+        $("#currency_income").html(data);
+        $("#currency_from_account_transfer").html(data);
+        $("#currency_to_account_transfer").html(data);
+
+        //alert('success on click event of GetRecordFields()');
+      },
+      error: function (xhr, status, error) {
+        // Log errors to console
+        console.error(status, error);
+      },
+    });
+  }
+
+  function GetAccountTypeList() {
+    //alert('testing on click event of GetRecordFields()');
+
+    $.ajax({
+      url: "AccountTypeList", // URL of your server-side script
+      type: "POST",
+
+      success: function (data) {
+        // Update content of element with id 'content'
+
+        $("#Account_type_expense").html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+        $("#Account_type_income").html(data);
+        $("#account_type_from_account_transfer").html(data);
+        $("#account_type_to_account_transfer").html(data);
+
+        //alert('success on click event of GetRecordFields()');
+      },
+      error: function (xhr, status, error) {
+        // Log errors to console
+        console.error(status, error);
+      },
+    });
+  }
+
+  function GetAccountList() {
+    //alert('testing on click event of GetRecordFields()');
+
+    $.ajax({
+      url: "AccountList", // URL of your server-side script
+      type: "POST",
+
+      success: function (data) {
+        // Update content of element with id 'content'
+
+        $("#Account_type_expense").html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+        $("#Account_type_income").html(data);
+        $("#account_type_from_account_transfer").html(data);
+        $("#account_type_to_account_transfer").html(data);
+
+        //alert('success on click event of GetRecordFields()');
+      },
+      error: function (xhr, status, error) {
+        // Log errors to console
+        console.error(status, error);
+      },
+    });
+  }
+
+  function GetCategoryList() {
+    //alert('Category List called');
+
+    $.ajax({
+      url: "/records/CategoryList", // URL of your server-side script
+      type: "GET",
+
+      success: function (data) {
+        // Update content of element with id 'content'
+        //$("#category").html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+        //alert('success on click event of GetRecordFields()');
+      },
+      error: function (xhr, status, error) {
+        // Log errors to console
+        console.error(status, error);
+      },
+    });
+  }
+
+  function GetPaymentTypeList() {
+    //alert('testing on click event of GetRecordFields()');
+
+    $.ajax({
+      url: "PaymentTypeList", // URL of your server-side script
+      type: "POST",
+
+      success: function (data) {
+        // Update content of element with id 'content'
+
+        $("#payment_type").html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+
+        //alert('success on click event of GetRecordFields()');
+      },
+      error: function (xhr, status, error) {
+        // Log errors to console
+        console.error(status, error);
+      },
+    });
+  }
+
+  function GetPaymentStatusList() {
+    //alert('testing on click event of GetRecordFields()');
+
+    $.ajax({
+      url: "PaymentStatusList", // URL of your server-side script
+      type: "POST",
+
+      success: function (data) {
+        // Update content of element with id 'content'
+
+        $("#payment_status").html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+
+        //alert('success on click event of GetRecordFields()');
+      },
+      error: function (xhr, status, error) {
+        // Log errors to console
+        console.error(status, error);
+      },
+    });
+  }
+
+  function GetLabelList() {
+    //alert('testing on click event of GetRecordFields()');
+
+    $.ajax({
+      url: "LabelList", // URL of your server-side script
+      type: "POST",
+
+      success: function (data) {
+        // Update content of element with id 'content'
+
+        $("#label").html(data); //#stateList -> id and .html means evey thing inside #stateList will be updated
+
+        //alert('success on click event of GetRecordFields()');
+      },
+      error: function (xhr, status, error) {
+        // Log errors to console
+        console.error(status, error);
+      },
+    });
+  }
+
+  function ClearInputFeilds() {
+    //ralert("clearing form")
+    var amount_expense = document.getElementById("amount_expense");
+    var amount_income = document.getElementById("amount_income");
+    var amount_from_account_transfer = document.getElementById(
+      "amount_from_account_transfer"
+    );
+    var amount_to_account_transfer = document.getElementById(
+      "amount_to_account_transfer"
+    );
+    var time = document.getElementById("time");
+    var date = document.getElementById("date");
+    var payer = document.getElementById("payer");
+    var note = document.getElementById("note");
+    var place = document.getElementById("place");
+
+    // Clear the values of the input fields
+    amount_expense.value = "";
+    amount_income.value = "";
+    amount_from_account_transfer.value = "";
+    amount_to_account_transfer.value = "";
+    time.value = "";
+    date.value = "";
+    payer.value = "";
+    note.value = "";
+    place.value = "";
+  }
+
+  function clearForm() {
+    GetRecordFields();
+    ClearInputFeilds();
+  }
+</script>
+
+<!-- script for  form toggle -->
+
+<script>
+  function showExpense() {
+    var transferform = document.getElementById("transfer-form");
+    var incomeform = document.getElementById("income-form");
+    var expenseform = document.getElementById("expense-form");
+
+    var expenseButton = document.getElementById("expenseButton");
+    var incomeButton = document.getElementById("incomeButton");
+    var transferButton = document.getElementById("transferButton");
+
+    expenseform.style.display = "block";
+    incomeform.style.display = "none";
+    transferform.style.display = "none";
+
+    expenseButton.style.color = "black";
+    expenseButton.style.backgroundColor = "white";
+
+    incomeButton.style.color = "white";
+    incomeButton.style.backgroundColor = "#ec407a";
+
+    transferButton.style.color = "white";
+    transferButton.style.backgroundColor = "#ec407a";
+    clearForm();
+  }
+
+  function showIncome() {
+    var transferform = document.getElementById("transfer-form");
+    var incomeform = document.getElementById("income-form");
+    var expenseform = document.getElementById("expense-form");
+
+    var expenseButton = document.getElementById("expenseButton");
+    var incomeButton = document.getElementById("incomeButton");
+    var transferButton = document.getElementById("transferButton");
+
+    expenseform.style.display = "none";
+    incomeform.style.display = "block";
+    transferform.style.display = "none";
+
+    expenseButton.style.color = "white";
+    expenseButton.style.backgroundColor = "#ec407a";
+
+    incomeButton.style.color = "black";
+    incomeButton.style.backgroundColor = "white";
+
+    transferButton.style.color = "white";
+    transferButton.style.backgroundColor = "#ec407a";
+    clearForm();
+  }
+
+  function showTransfer() {
+    var transferform = document.getElementById("transfer-form");
+    var incomeform = document.getElementById("income-form");
+    var expenseform = document.getElementById("expense-form");
+
+    var expenseButton = document.getElementById("expenseButton");
+    var incomeButton = document.getElementById("incomeButton");
+    var transferButton = document.getElementById("transferButton");
+
+    expenseform.style.display = "none";
+    incomeform.style.display = "none";
+    transferform.style.display = "block";
+
+    expenseButton.style.color = "white";
+    expenseButton.style.backgroundColor = "#ec407a";
+
+    incomeButton.style.color = "white";
+    incomeButton.style.backgroundColor = "#ec407a";
+
+    transferButton.style.color = "black";
+    transferButton.style.backgroundColor = "white";
+
+    clearForm();
+  }
+</script>
+
+<!-- script for recordCard -->
+<!-- map scripts and style -->
+<!-- 
+
+
+<script
+  src="https://www.bing.com/api/maps/mapcontrol?key=Aj88eRA3_FU6R9xaHDEi5rdledOQ7Rm9ldF3d2qwvkI7dTzsEWqMahOU8bZPPeXq"
+  async
+  defer
+></script>
+<style>
+  #map {
+    width: 100%;
+    height: 250px;
+  }
+</style>
+
+ -->
+
+<!-- scripts for map 
+<script>
+  var map;
+
+  function initMap() {
+    map = new Microsoft.Maps.Map(document.getElementById("map"), {
+      credentials:
+        "Aj88eRA3_FU6R9xaHDEi5rdledOQ7Rm9ldF3d2qwvkI7dTzsEWqMahOU8bZPPeXq", // Replace with your API key
+      center: new Microsoft.Maps.Location(22.5752, 88.4275), // Default center (Evavalu coordinates)
+      zoom: 15,
+    });
+  }
+
+  function searchCity() {
+    var city = document.getElementById("place").value;
+
+    // Use Bing Maps REST API to geocode the city name to get its coordinates
+    fetch(
+      "https://dev.virtualearth.net/REST/v1/Locations/" +
+        encodeURIComponent(city) +
+        "?key=Aj88eRA3_FU6R9xaHDEi5rdledOQ7Rm9ldF3d2qwvkI7dTzsEWqMahOU8bZPPeXq"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        var coordinates = data.resourceSets[0].resources[0].point.coordinates;
+        var location = new Microsoft.Maps.Location(
+          coordinates[0],
+          coordinates[1]
+        );
+
+        // Set map center to the searched city
+        map.setView({ center: location, zoom: 15 });
+
+        // Clear existing markers
+        map.entities.clear();
+
+        // Add marker for the searched city
+        var marker = new Microsoft.Maps.Pushpin(location);
+        map.entities.push(marker);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+</script>
+
+
+-->
+<!-- scripts for map ends
+
+<script>
+  // Load the map after the page has fully loaded
+  window.onload = function () {
+    initMap();
+  };
+</script>
+-->

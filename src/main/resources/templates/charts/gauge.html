@@ -1,0 +1,344 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+	.gaugeCard {
+		margin: 10px;
+		display: inline-block;
+		height: 60vh;
+		width: 45%;
+		border: 1px solid rgba(0, 0, 0, 0.125);
+		border-radius: 3px;
+		padding-bottom: 66px;
+		overflow: hidden;
+		background-color: white;
+	}
+
+	.gaugeCanvas {
+		margin-top: 60px;
+		width: 200px;
+	}
+
+	.gaugeContent {
+		width: 100%;
+	}
+</style>
+<div class="gaugeCard">
+	<div class="card-body">
+		<div class="gaugeContent">
+			<h2 style="text-align: center;">Transaction Meter</h2>
+			<canvas id="moneyTrackerCanvas" class="gaugeCanvas"></canvas>
+			<canvas id="moneyTrackerCanvas2" class="gaugeCanvas"></canvas>
+			<canvas id="moneyTrackerCanvas3" class="gaugeCanvas"></canvas>
+		</div>
+	</div>
+</div>
+
+<script th:inline="javascript">
+
+	function expense() {
+		/*<![CDATA[*/
+
+		var df = new Intl.NumberFormat('en-IN', {
+			style: 'currency',
+			currency: 'INR'
+		});
+
+		var expense = /*[[${session.EXPENSEUSER}]]*/ "";
+		var income = /*[[${session.INCOMEUSER}]]*/ "";
+		var transfer = /*[[${session.TRANSFERUSER}]]*/ "";
+		var incomeTransfer =
+		      /*[[${session.INCOMETRANSFER}]]*/'';
+		var initialAmount = /*[[${session.INITIALAMTUSER}]]*/ "";
+		console.log(initialAmount + " " + income + " " + incomeTransfer + " "
+			+ expense + " " + transfer)
+		var balance = /*[[${session.BALANCE}]]*/'';
+		var cashflow = income - expense;
+
+		var canvas = document.getElementById("moneyTrackerCanvas");
+		var ctx = canvas.getContext("2d");
+
+		// Draw money tracker
+		function drawMoneyTracker(initialMoney, currentMoney) {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			// Draw background
+			ctx.beginPath();
+			ctx.arc(canvas.width / 2, canvas.height, 100, Math.PI, 2 * Math.PI);
+			ctx.fillStyle = "#f2f2f2";
+			ctx.fill();
+
+			// Draw scale
+			ctx.save();
+			ctx.translate(canvas.width / 2, canvas.height);
+			for (var i = 0; i <= 180; i += 1) {
+				ctx.save();
+				ctx.rotate(Math.PI / 180 * (i - 90));
+				ctx.translate(0, -90);
+				ctx.beginPath();
+				ctx.moveTo(0, 0);
+				ctx.lineTo(0, -5);
+				ctx.strokeStyle = getColorForAngle(i);
+				ctx.lineWidth = 70;
+				ctx.stroke();
+				ctx.restore();
+			}
+			ctx.restore();
+
+			// Calculate angle based on money difference
+			var angle;
+			/* if (currentMoney >= initialMoney) {
+				angle = (currentMoney - initialMoney) / (initialMoney * 0.01);
+			} else {
+				angle = -((initialMoney - currentMoney) / (initialMoney * 0.01));
+			} */
+			angle = (currentMoney - initialMoney) / (initialMoney * 0.01);
+
+			// Clamp angle within the range of -90 to 90 degrees
+			angle = angle + 90;
+			if (angle >= 180)
+				angle = 160;
+			if (angle <= 0)
+				angle = 5;
+			console.log(angle);
+			// Draw needle
+			ctx.save();
+			ctx.translate(canvas.width / 2, canvas.height);
+			ctx.rotate(angle * Math.PI / 180);
+			ctx.beginPath();
+			ctx.moveTo(-85, 0); // Adjusted length
+			ctx.lineTo(100, 0);
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = "#000";
+			ctx.stroke();
+			ctx.restore();
+
+			// Draw text
+			ctx.font = "20px Arial";
+			ctx.fillStyle = "#000";
+			ctx.fillText("Initial Amount: " + df.format(initialMoney), 10, 20);
+			ctx.fillText("Balance: " + df.format(currentMoney), 10, 40);
+		}
+
+		// Function to get color based on angle
+		function getColorForAngle(angle) {
+			if (angle <= 60) {
+				return "red"; // Red for low values
+			} else if (angle >= 120) {
+				return "green"; // Green for high values
+			} else {
+				return "#FFA000"; // Dark yellow for moderate values
+			}
+		}
+
+		// Initial and current money values
+		var initialMoney = initialAmount;
+		var currentMoney = balance;
+
+		// Draw initial money tracker
+		drawMoneyTracker(initialMoney, currentMoney);
+		/*]]>*/
+
+	}
+	$(document).ready(function () {
+		expense();
+	});
+</script>
+<script th:inline="javascript">
+	$(document).ready(function () {
+		/*<![CDATA[*/
+
+		var df = new Intl.NumberFormat("en-IN", {
+			style: "currency",
+			currency: "INR",
+		});
+		var expense = /*[[${session.EXPENSEUSER}]]*/ "";
+		var income = /*[[${session.INCOMEUSER}]]*/ "";
+		var transfer = /*[[${session.TRANSFERUSER}]]*/ "";
+		var incomeTransfer =
+      /*[[${session.INCOMETRANSFER}]]*/'';
+		var initialAmount = /*[[${session.INITIALAMTUSER}]]*/ "";
+		var balance = initialAmount + income + incomeTransfer - expense - transfer;
+		var cashflow = income - expense;
+		cashflow = cashflow.toFixed(2);
+
+		var canvas = document.getElementById("moneyTrackerCanvas2");
+		var ctx = canvas.getContext("2d");
+
+		// Draw money tracker
+		function drawMoneyTracker(initialMoney, currentMoney) {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			// Draw background
+			ctx.beginPath();
+			ctx.arc(canvas.width / 2, canvas.height, 100, Math.PI, 2 * Math.PI);
+			ctx.fillStyle = "#f2f2f2";
+			ctx.fill();
+
+			// Draw scale
+			ctx.save();
+			ctx.translate(canvas.width / 2, canvas.height);
+			for (var i = 0; i <= 180; i += 1) {
+				ctx.save();
+				ctx.rotate((Math.PI / 180) * (i - 90));
+				ctx.translate(0, -90);
+				ctx.beginPath();
+				ctx.moveTo(0, 0);
+				ctx.lineTo(0, -5);
+				ctx.strokeStyle = getColorForAngle(i);
+				ctx.lineWidth = 70;
+				ctx.stroke();
+				ctx.restore();
+			}
+			ctx.restore();
+
+			// Calculate angle based on money difference
+			var angle;
+			/* if (currentMoney >= initialMoney) {
+						  angle = (currentMoney - initialMoney) / (initialMoney * 0.01);
+					  } else {
+						  angle = -((initialMoney - currentMoney) / (initialMoney * 0.01));
+					  } */
+			angle = (currentMoney - initialMoney) / (initialMoney * 0.01);
+
+			// Clamp angle within the range of -90 to 90 degrees
+			angle = angle + 90;
+			if (angle >= 180) angle = 160;
+			if (angle <= 0) angle = 5;
+			console.log(angle);
+			// Draw needle
+			ctx.save();
+			ctx.translate(canvas.width / 2, canvas.height);
+			ctx.rotate((angle * Math.PI) / 180);
+			ctx.beginPath();
+			ctx.moveTo(-85, 0); // Adjusted length
+			ctx.lineTo(100, 0);
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = "#000";
+			ctx.stroke();
+			ctx.restore();
+
+			// Draw text
+			ctx.font = "20px Arial";
+			ctx.fillStyle = "#000";
+			//ctx.fillText("Initial Money: $" + initialMoney, 10, 20);
+			ctx.fillText("Cashflow: " + df.format(currentMoney), 10, 40);
+		}
+
+		// Function to get color based on angle
+		function getColorForAngle(angle) {
+			if (angle <= 60) {
+				return "red"; // Red for low values
+			} else if (angle >= 120) {
+				return "green"; // Green for high values
+			} else {
+				return "#FFA000"; // Dark yellow for moderate values
+			}
+		}
+
+		// Initial and current money values
+		var initialMoney = 0;
+		var currentMoney = cashflow;
+
+		// Draw initial money tracker
+		drawMoneyTracker(initialMoney, currentMoney);
+		/*]]>*/
+	});
+</script>
+<script th:inline="javascript">
+	$(document).ready(function () {
+		/*<![CDATA[*/
+
+		var df = new Intl.NumberFormat("en-IN", {
+			style: "currency",
+			currency: "INR",
+		});
+		var expense = /*[[${session.EXPENSEUSER}]]*/ "";
+		var income = /*[[${session.INCOMEUSER}]]*/ "";
+		var transfer = /*[[${session.TRANSFERUSER}]]*/ "";
+		var incomeTransfer =
+      /*[[${session.INCOMETRANSFER}]]*/'';
+		var initialAmount = /*[[${session.INITIALAMTUSER}]]*/ "";
+		var balance = initialAmount + income + incomeTransfer - expense - transfer;
+		var cashflow = income - expense;
+		var canvas = document.getElementById("moneyTrackerCanvas3");
+		var ctx = canvas.getContext("2d");
+
+		// Draw money tracker
+		function drawMoneyTracker(initialMoney, currentMoney) {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			// Draw background
+			ctx.beginPath();
+			ctx.arc(canvas.width / 2, canvas.height, 100, Math.PI, 2 * Math.PI);
+			ctx.fillStyle = "#f2f2f2";
+			ctx.fill();
+
+			// Draw scale
+			ctx.save();
+			ctx.translate(canvas.width / 2, canvas.height);
+			for (var i = 0; i <= 180; i += 1) {
+				ctx.save();
+				ctx.rotate((Math.PI / 180) * (i - 90));
+				ctx.translate(0, -90);
+				ctx.beginPath();
+				ctx.moveTo(0, 0);
+				ctx.lineTo(0, -5);
+				ctx.strokeStyle = getColorForAngle(i);
+				ctx.lineWidth = 70;
+				ctx.stroke();
+				ctx.restore();
+			}
+			ctx.restore();
+
+			// Calculate angle based on money difference
+			var angle;
+			/* if (currentMoney >= initialMoney) {
+						  angle = (currentMoney - initialMoney) / (initialMoney * 0.01);
+					  } else {
+						  angle = -((initialMoney - currentMoney) / (initialMoney * 0.01));
+					  } */
+			angle = (currentMoney - initialMoney) / (initialMoney * 0.01);
+
+			// Clamp angle within the range of -90 to 90 degrees
+			angle = angle + 90;
+			if (angle >= 180) angle = 160;
+			if (angle <= 0) angle = 5;
+			console.log(angle);
+			// Draw needle
+			ctx.save();
+			ctx.translate(canvas.width / 2, canvas.height);
+			ctx.rotate((angle * Math.PI) / 180);
+			ctx.beginPath();
+			ctx.moveTo(-85, 0); // Adjusted length
+			ctx.lineTo(100, 0);
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = "#000";
+			ctx.stroke();
+			ctx.restore();
+
+			// Draw text
+			ctx.font = "20px Arial";
+			ctx.fillStyle = "#000";
+			//.fillText("Initial Money: $" + initialMoney, 10, 20);
+			ctx.fillText("Expense: " + df.format(currentMoney), 10, 40);
+		}
+
+		// Function to get color based on angle
+		function getColorForAngle(angle) {
+			if (angle <= 60) {
+				return "red"; // Red for low values
+			} else if (angle >= 120) {
+				return "green"; // Green for high values
+			} else {
+				return "#FFA000"; // Dark yellow for moderate values
+			}
+		}
+
+		// Initial and current money values
+		var initialMoney = expense;
+		var currentMoney = expense;
+
+		// Draw initial money tracker
+		drawMoneyTracker(initialMoney, currentMoney);
+		/*]]>*/
+	});
+</script>
